@@ -3,6 +3,7 @@
 #include "FileHelpers.h"
 
 const std::string ResourceManager::SPRITE_PATH = "res/Sprites/";
+const std::locale ResourceManager::LOCALE = std::locale("en_US.UTF-8");
 
 ResourceManager::ResourceManager() : _sprites() {
 
@@ -15,7 +16,7 @@ ResourceManager::ResourceManager() : _sprites() {
 			const std::string name = std::string(file->name.begin(), file->name.end());
 
 			Sprite* sprt(nullptr);
-			if (tryLoadSprite(file->fullPath, &sprt) == 0) {
+			if (tryLoadSprite(file->fullPath, &sprt, LOCALE) == 0) {
 
 				_sprites.insert(std::pair<std::string, Sprite*>(file->name, sprt));
 			}
@@ -41,12 +42,11 @@ bool ResourceManager::tryGetSprite(const std::string name, Sprite** spriteOut) {
 	return true;
 }
 
-int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite) {
+int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, const std::locale locale) {
 
 	std::wifstream stream;
-	std::ofstream streamO;
 
-	stream.imbue(std::locale("en_US.utf8"));
+	stream.imbue(locale);
 	stream.open(path);
 
 	if(!stream) 

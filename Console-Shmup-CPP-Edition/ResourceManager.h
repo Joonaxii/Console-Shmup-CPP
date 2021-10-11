@@ -20,10 +20,11 @@ public:
 private:
 
     static const std::string SPRITE_PATH;
+    static const std::locale LOCALE;
     std::unordered_map<std::string, Sprite*, std::hash<std::string>> _sprites;
 
     void loadSprites();
-    int tryLoadSprite(const std::string path, Sprite** sprite);
+    int tryLoadSprite(const std::string path, Sprite** sprite, const std::locale locale);
 
     char convertToANSI(const wchar_t input);
 

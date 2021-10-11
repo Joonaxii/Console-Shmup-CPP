@@ -178,13 +178,13 @@ void Rendering::setTitle(const char* str) {
     }
 }
 
-void Rendering::render(const float time) {
+void Rendering::render() {
 
     //Clear Buffers, the char buffer with the "space" char and depth buffer with 0s 
     memset(&_buffer[GAME_AREA_START], ' ', (CHAR_W * CHAR_H) - GAME_AREA_START);
     memset(&_depthBuffer[GAME_AREA_START], 0, (CHAR_W * CHAR_H) - GAME_AREA_START);
-    //clearInfoRegion();
-
+  
+    //Insert all active renderers to batch priority queue
     for (size_t i = 0; i < _renderers.size(); i++)
     {
         const auto rend = _renderers[i];
@@ -194,7 +194,7 @@ void Rendering::render(const float time) {
         }
     }
 
-    //TODO: Add sprite rendering etc...
+    //Render sprite renderer batch
     while (!_batch.empty()) {
 
         SpriteRenderer* rend = _batch.top();

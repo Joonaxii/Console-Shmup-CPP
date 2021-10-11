@@ -40,20 +40,20 @@ private:
     public:
         KeyState() : down(false), held(false), up(false), pressed(false) {}
 
-        void copyFrom(const KeyState& other) {
+        void copyFrom(const KeyState* other) {
 
-            down = other.down;
-            held = other.held;
-            up = other.up;
-            pressed = other.pressed;
+            down = other->down;
+            held = other->held;
+            up = other->up;
+            pressed = other->pressed;
         }
     };
 
     const int _indexToKey[9];
 
     std::unordered_map<int, int> _keyLut;
-    KeyState _keys[9];
-    KeyState _previousKeys[9];
+    KeyState* _keys[9];
+    KeyState* _previousKeys[9];
 
 };
 

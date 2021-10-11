@@ -42,7 +42,7 @@ public:
     ~Rendering();
 
     void setup();
-    void render(const float time);
+    void render();
 
     void clearInfoRegion();
     void setTitle(const char* str);

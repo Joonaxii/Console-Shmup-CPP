@@ -27,9 +27,27 @@ int main()
     engine->getResourceManager()->tryGetSprite("Player", &sprt);
     renderer->setSprite(sprt);
 
+    Vector2 pos(0, 0);
+
+    auto inputs = engine->getInputs();
     while (true)
     {
         engine->update();
+
+        float delta = time->getDeltaTime();
+        Vector2 dir(0, 0);
+
+        dir.x += inputs->isKeyHeld(Inputs::MOVE_RIGHT);
+        dir.x -= inputs->isKeyHeld(Inputs::MOVE_LEFT);
+
+        dir.y += inputs->isKeyHeld(Inputs::MOVE_UP);
+        dir.y -= inputs->isKeyHeld(Inputs::MOVE_DOWN);
+
+        dir.x *= delta * 42.0f;
+        dir.y *= delta * 32.0f;
+
+        pos += dir;
+        renderer->setPosition(pos);
 
         const auto frm = time->getFrames();
         if (frm % 1 == 0) {
@@ -50,8 +68,6 @@ int main()
             //ss << "Frames: " << frm << "     ";
             //rend->addInfoString(0, 3, ss.str().c_str());
         }
-
-        rend->render(time->getTime());
     }
     delete engine;
 }

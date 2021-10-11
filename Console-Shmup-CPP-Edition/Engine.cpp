@@ -35,7 +35,7 @@ void Engine::update() {
 
     _inputs->update();
     _time->tick();
-    _rendering->render(_time->getTime());
+    _rendering->render();
 }
 
 Time* Engine::getTime() {

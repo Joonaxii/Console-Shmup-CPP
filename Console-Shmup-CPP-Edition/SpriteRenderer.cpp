@@ -17,12 +17,12 @@ void SpriteRenderer::setLayer(const std::string layer) {
 void SpriteRenderer::setPosition(const Vector2& position) {
 
 	_position.x = position.x;
-	_position.y = position.y;
+	_position.y = -position.y;
 
 	if (_sprite == nullptr) { return; }
 
-	positionGrid.x = (int)(position.x + _sprite->pivot.x) + Rendering::CHAR_W / 2;
-	positionGrid.y = (int)(position.y + _sprite->pivot.y) + Rendering::GAME_AREA_H / 2;
+	positionGrid.x = (int)(_position.x + _sprite->pivot.x) + Rendering::CHAR_W / 2;
+	positionGrid.y = (int)(_position.y + _sprite->pivot.y) + Rendering::GAME_AREA_H / 2;
 }
 
 void SpriteRenderer::setActive(const bool active) {
