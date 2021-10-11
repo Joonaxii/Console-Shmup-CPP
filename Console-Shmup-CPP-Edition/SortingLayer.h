@@ -10,12 +10,15 @@ public:
     ~SortingLayer();
 
     unsigned short orderInLayer;
-    unsigned int layerIndex;
+    unsigned short layerIndex;
+
+    const unsigned int getUnion() const;
 
     const bool operator<(const SortingLayer& other) const;
     const bool operator>(const SortingLayer& other) const;
 
     const bool operator==(const SortingLayer& other) const;
     const bool operator!=(const SortingLayer& other) const;
+
 };
 

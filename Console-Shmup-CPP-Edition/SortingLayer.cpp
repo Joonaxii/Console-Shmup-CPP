@@ -11,23 +11,23 @@ SortingLayer::SortingLayer(const std::string layerName, const unsigned short ord
 
 SortingLayer::~SortingLayer() { }
 
-const bool SortingLayer::operator<(const SortingLayer& other) const  {
+const unsigned int SortingLayer::getUnion() const {
+    return orderInLayer + (layerIndex << 16);
+}
 
+const bool SortingLayer::operator<(const SortingLayer& other) const  {
     return layerIndex <= other.layerIndex && orderInLayer < other.layerIndex;
 }
 
 const bool SortingLayer::operator>(const SortingLayer& other) const  {
-
     return layerIndex >= other.layerIndex && orderInLayer > other.layerIndex;
 }
 
 const bool SortingLayer::operator==(const SortingLayer& other) const  {
-
     return layerIndex == other.layerIndex && orderInLayer == other.layerIndex;
 }
 
 const bool SortingLayer::operator!=(const SortingLayer& other) const  {
-
     return !(this == &other);
 }
 

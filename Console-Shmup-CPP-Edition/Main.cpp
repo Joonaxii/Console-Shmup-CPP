@@ -19,6 +19,14 @@ int main()
 
     Sprite* sprite = new Sprite("----|  ||  |----", Vector2Int(4, 4), Vector2(0, 0));
 
+    SpriteRenderer* renderer = new SpriteRenderer();
+    renderer->setPosition(Vector2(0, 0));
+    renderer->setActive(true);
+
+    Sprite* sprt(nullptr);
+    engine->getResourceManager()->tryGetSprite("Player", &sprt);
+    renderer->setSprite(sprt);
+
     while (true)
     {
         engine->update();

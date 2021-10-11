@@ -4,10 +4,9 @@
 
 const std::string ResourceManager::SPRITE_PATH = "res/Sprites/";
 
-ResourceManager::ResourceManager() : _renderers() {
+ResourceManager::ResourceManager() : _sprites() {
 
     std::vector<FilePath*> filePaths;
-
 	if (FileHelpers::getAllFilesByExtension(SPRITE_PATH, filePaths, ".sprt")) {
 
 		for (size_t i = 0; i < filePaths.size(); i++)
@@ -16,14 +15,10 @@ ResourceManager::ResourceManager() : _renderers() {
 			const std::string name = std::string(file->name.begin(), file->name.end());
 
 			Sprite* sprt(nullptr);
-			if (tryLoadSprite(file->fullPath, sprt)) {
+			if (tryLoadSprite(file->fullPath, &sprt) == 0) {
 
-				_renderers.insert(std::pair<std::string, Sprite*>(file->name, sprt));
-				const auto out = std::string("Added Sprite: '" + file->name + "'\n");
-				OutputDebugStringA(out.c_str());
-
+				_sprites.insert(std::pair<std::string, Sprite*>(file->name, sprt));
 			}
-
 			delete file;
 		}
 	}
@@ -33,8 +28,20 @@ ResourceManager::ResourceManager() : _renderers() {
 
 ResourceManager::~ResourceManager() { }
 
+bool ResourceManager::tryGetSprite(const std::string name, Sprite** spriteOut) {
 
-int ResourceManager::tryLoadSprite(const std::string path, Sprite* sprite) {
+	auto iter = _sprites.find(name);
+	if (iter == _sprites.end()) 
+	{ 
+		*spriteOut = nullptr;
+		return false; 
+	}
+
+	*spriteOut = _sprites[name];
+	return true;
+}
+
+int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite) {
 
 	std::wifstream stream;
 	std::ofstream streamO;
@@ -82,11 +89,12 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite* sprite) {
 			const wchar_t cW = line.at(i);
 			const char c = convertToANSI(cW);
 
-			pixels[ii++] = *&c;
+			pixels[ii++] = (c == '^' ? ' ' : c);
 		}
 	}
 	stream.close();
-	sprite = new Sprite(pixels, Vector2Int(w, h), Vector2(pivotX, pivotY));
+	*sprite = new Sprite(pixels, Vector2Int(w, h), Vector2(pivotX, pivotY));
+	return 0;
 }
 
 char ResourceManager::convertToANSI(const wchar_t input) {

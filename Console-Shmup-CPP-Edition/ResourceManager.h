@@ -15,15 +15,15 @@ public:
     ResourceManager();
     ~ResourceManager();
 
-    bool tryGetSprite(const std::string name, Sprite* spriteOut);
+    bool tryGetSprite(const std::string name, Sprite** spriteOut);
 
 private:
 
     static const std::string SPRITE_PATH;
-    std::unordered_map<std::string, Sprite*, std::hash<std::string>> _renderers;
+    std::unordered_map<std::string, Sprite*, std::hash<std::string>> _sprites;
 
     void loadSprites();
-    int tryLoadSprite(const std::string path, Sprite* sprite);
+    int tryLoadSprite(const std::string path, Sprite** sprite);
 
     char convertToANSI(const wchar_t input);
 

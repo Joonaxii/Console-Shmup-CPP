@@ -1,4 +1,5 @@
 #include "Includes.h"
+#include "windows.h"
 
 Sprite::Sprite() : pixels(0), pivot(0, 0), resolution(0, 0) {
 }

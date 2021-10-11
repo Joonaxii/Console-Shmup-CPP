@@ -10,7 +10,7 @@
 #include <iostream>
 #include "math.h"
 
-Rendering::Rendering() :_buffer{ 0 }, _depthBuffer{ 0 }, _bufferStream(), _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
+Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 }, _bufferStream(), _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
 
     for (size_t i = 0; i < 4; i++)
     {
@@ -33,7 +33,8 @@ const std::string Rendering::indexToLayerName(const int index) const {
     return layers[index];
 }
 
-void Rendering::registerRenderer(const SpriteRenderer* renderer) {
+void Rendering::registerRenderer(SpriteRenderer* renderer) {
+    _renderers.push_back(renderer);
 }
 
 void Rendering::setup()
@@ -41,13 +42,12 @@ void Rendering::setup()
     std::ios::sync_with_stdio(false);
     std::wios::sync_with_stdio(false);
 
-  //  HWND consoleWindow = GetConsoleWindow();
-   // SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+    HWND consoleWindow = GetConsoleWindow();
+    SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
 
     _setmode(_fileno(stdout), _O_TEXT);
     setScreenSize(OFFSET_X, OFFSET_Y, RES_X, RES_Y, CHAR_W, CHAR_H);
     memset(_buffer, ' ', CHAR_W * CHAR_H);
-    //renderEdge();
 }
 
 void Rendering::clearInfoRegion() {
@@ -181,7 +181,7 @@ void Rendering::setTitle(const char* str) {
 void Rendering::render(const float time) {
 
     //Clear Buffers, the char buffer with the "space" char and depth buffer with 0s 
-    memset(&_buffer[GAME_AREA_START], '0', (CHAR_W * CHAR_H) - GAME_AREA_START);
+    memset(&_buffer[GAME_AREA_START], ' ', (CHAR_W * CHAR_H) - GAME_AREA_START);
     memset(&_depthBuffer[GAME_AREA_START], 0, (CHAR_W * CHAR_H) - GAME_AREA_START);
     //clearInfoRegion();
 
@@ -190,17 +190,60 @@ void Rendering::render(const float time) {
         const auto rend = _renderers[i];
         if (rend->canRender()) {
             _batch.push(rend);
+            continue;
         }
+    }
+
+    //TODO: Add sprite rendering etc...
+    while (!_batch.empty()) {
+
+        SpriteRenderer* rend = _batch.top();
+        _batch.pop();
+        renderSprite(rend);
     }
 
     //Move cursor to top left
     gotoxy(0, 0);
 
-    //TODO: Add sprite rendering etc...
-
     //Write the buffer to the console
     std::cout.write(_buffer, (CHAR_W * CHAR_H));
     std::cout.flush();
+}
+
+void Rendering::renderSprite(SpriteRenderer* renderer) {
+
+    const Sprite* sprt = renderer->getSprite();
+
+    const auto reso = sprt->resolution;
+    const auto pos = renderer->positionGrid;
+
+    const unsigned int order = renderer->layer.getUnion();
+
+    for (size_t y = 0; y < reso.y; y++)
+    {
+        signed int yP = pos.y + y;
+
+        if (yP < 0 || yP >= GAME_AREA_H) { continue; }
+
+        yP += GAME_AREA_Y;
+        for (size_t x = 0; x < reso.x; x++)
+        {
+            signed int xP = pos.x + x;
+
+            if (xP < 0 || xP >= CHAR_W) { continue; }
+
+            const signed int i = yP * CHAR_W + xP;
+            const int iP = y * reso.x + x;
+
+            if (_depthBuffer[i] > order) { continue; }
+
+            const char c = sprt->pixels[iP];
+            if (c == '½') { continue; }
+
+            _buffer[i] = c;
+            _depthBuffer[i] = order;
+        }
+    }
 }
 
 void Rendering::gotoxy(short x, short y) {
