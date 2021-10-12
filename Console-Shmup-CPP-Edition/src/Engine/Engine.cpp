@@ -7,12 +7,6 @@ Engine::Engine() {
     _rendering = new Rendering();
     _inputs = new Inputs();
     _resourceManager = new ResourceManager();
-
-    for (size_t i = 0; i < 5; i++)
-    {
-        const std::string str = _rendering->indexToLayerName(i);
-        OutputDebugStringA(str.c_str());
-    }
 }
 
 Engine::~Engine() { }

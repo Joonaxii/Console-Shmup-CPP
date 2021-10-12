@@ -10,3 +10,5 @@
 #include "Engine/Rendering/Sprite.h"
 #include "Engine/Rendering/SpriteRenderer.h"
 #include "Engine/Rendering/Rendering.h"
+
+#include "Engine/Collision/CollisionSystem.h"
