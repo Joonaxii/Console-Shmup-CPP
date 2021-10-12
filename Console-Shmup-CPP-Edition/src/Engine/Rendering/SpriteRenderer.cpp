@@ -1,4 +1,4 @@
-#include "Includes.h"
+#include "../../Includes.h"
 #include "windows.h"
 
 SpriteRenderer::SpriteRenderer() :_position(0, 0), positionGrid(0, 0), _sprite(nullptr), layer(), _isActive(true) {
@@ -12,6 +12,10 @@ SpriteRenderer::~SpriteRenderer() {
 
 void SpriteRenderer::setLayer(const std::string layer) {
 	this->layer.layerIndex = _rendering->layerNameToIndex(layer);
+}
+
+void SpriteRenderer::setSortingOrder(const unsigned short order) {
+	this->layer.orderInLayer = order;
 }
 
 void SpriteRenderer::setPosition(const Vector2& position) {

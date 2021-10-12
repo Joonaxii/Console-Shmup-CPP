@@ -3,10 +3,10 @@
 #include <queue>
 #include <vector>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <sstream>
 
-static const std::string layers[4] { "Default", "Background" "Foreground", "UI" };
+static const std::string layers[6] { "Default", "Background", "EnemiesBG", "EnemiesFG", "Foreground", "UI"};
 
 class SpriteRenderer;
 class Rendering
@@ -14,16 +14,19 @@ class Rendering
     static const int SCREEN_W = 1920;
     static const int SCREEN_H = 1080;
 
-    static const int RES_X = (int)(SCREEN_W / 2) + 4;
-    static const int RES_Y = (int)(SCREEN_H / 2) + 32;
+    static const int SCREEN_W_S = (int)(SCREEN_W / 1.75);
+    static const int SCREEN_H_S = (int)(SCREEN_H / 2);
+
+    static const int RES_X = SCREEN_W_S + 18;
+    static const int RES_Y = SCREEN_H_S + 240;
 
     static const int OFFSET_X = (SCREEN_W / 2) - (RES_X / 2);
     static const int OFFSET_Y = (SCREEN_H / 2) - (RES_Y / 2);
 
 public:
 
-    static const int CHAR_W = 116;
-    static const int CHAR_H = 32;
+    static const int CHAR_W = (int)(SCREEN_W_S / 8);
+    static const int CHAR_H = (int)(SCREEN_H_S / 16) + 12;
 
     static const int TITLE_START = 0;
     static const int TITLE_H = 3;
@@ -57,7 +60,7 @@ public:
 
 private:
 
-    std::map<std::string, int> _layerToIndex;
+    std::unordered_map<std::string, int> _layerToIndex;
 
     char _buffer[CHAR_W * CHAR_H];
     unsigned int _depthBuffer[CHAR_W * CHAR_H];

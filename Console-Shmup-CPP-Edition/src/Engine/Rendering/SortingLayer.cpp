@@ -1,4 +1,4 @@
-#include "Includes.h"
+#include "../../Includes.h"
 #include "SortingLayer.h"
 
 SortingLayer::SortingLayer() : orderInLayer(0), layerIndex(0) { }
@@ -12,7 +12,7 @@ SortingLayer::SortingLayer(const std::string layerName, const unsigned short ord
 SortingLayer::~SortingLayer() { }
 
 const unsigned int SortingLayer::getUnion() const {
-    return orderInLayer + (layerIndex << 16);
+    return (unsigned int)orderInLayer + (unsigned int)(layerIndex << 16);
 }
 
 const bool SortingLayer::operator<(const SortingLayer& other) const  {

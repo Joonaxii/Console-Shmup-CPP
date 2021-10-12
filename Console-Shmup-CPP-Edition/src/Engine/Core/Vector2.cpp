@@ -18,6 +18,11 @@ Vector2 Vector2::operator-=(const Vector2& other) {
     return *this;
 }
 
+Vector2 Vector2::operator-() {
+   
+    return Vector2(-x, -y);
+}
+
 std::string Vector2::toString()
 {
     std::ostringstream str;

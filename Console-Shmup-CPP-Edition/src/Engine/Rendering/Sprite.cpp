@@ -1,7 +1,8 @@
-#include "Includes.h"
+#include "../../Includes.h"
 #include "windows.h"
 
-Sprite::Sprite() : pixels(0), pivot(0, 0), resolution(0, 0) {
+Sprite::Sprite() : pivot(0, 0), resolution(0, 0) {
+    pixels = new char[0];
 }
 
 Sprite::Sprite(const char* pix, Vector2Int reso, Vector2 pivot) :

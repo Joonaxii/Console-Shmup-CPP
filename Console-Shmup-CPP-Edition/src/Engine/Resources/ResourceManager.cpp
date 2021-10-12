@@ -1,6 +1,6 @@
 ﻿#include "ResourceManager.h"
-#include "FilePath.h"
-#include "FileHelpers.h"
+#include "../IO/FilePath.h"
+#include "../IO/FileHelpers.h"
 
 const std::string ResourceManager::SPRITE_PATH = "res/Sprites/";
 const std::locale ResourceManager::LOCALE = std::locale("en_US.UTF-8");
@@ -20,6 +20,7 @@ ResourceManager::ResourceManager() : _sprites() {
 
 				_sprites.insert(std::pair<std::string, Sprite*>(file->name, sprt));
 			}
+
 			delete file;
 		}
 	}
@@ -74,7 +75,7 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 	stream >> rendOffset;
 
 	const int total(w * h);
-	char* pixels = new char[total]  {0};
+	auto pixels = std::make_unique<char[]>(total);
 	int ii = 0;
 
 	while (!stream.eof()) {
@@ -86,14 +87,15 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 
 		for (size_t i = 0; i < line.length(); i++)
 		{
+			if (ii >= total) { break; }
 			const wchar_t cW = line.at(i);
 			const char c = convertToANSI(cW);
 
-			pixels[ii++] = (c == '^' ? ' ' : c);
+			pixels[ii++] = c == '^' ? ' ' : c;
 		}
 	}
 	stream.close();
-	*sprite = new Sprite(pixels, Vector2Int(w, h), Vector2(pivotX, pivotY));
+	*sprite = new Sprite(pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY));
 	return 0;
 }
 

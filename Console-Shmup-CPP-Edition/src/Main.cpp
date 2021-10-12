@@ -1,4 +1,5 @@
 #include "Includes.h"
+#include "Math.h"
 #include <sstream>
 
 Engine* Engine::_instance;
@@ -17,17 +18,28 @@ int main()
     const auto time = engine->getTime();
     const auto rend = engine->getRendering();
 
-    Sprite* sprite = new Sprite("----|  ||  |----", Vector2Int(4, 4), Vector2(0, 0));
-
     SpriteRenderer* renderer = new SpriteRenderer();
     renderer->setPosition(Vector2(0, 0));
     renderer->setActive(true);
 
+
     Sprite* sprt(nullptr);
     engine->getResourceManager()->tryGetSprite("Player", &sprt);
     renderer->setSprite(sprt);
+    renderer->setLayer("Foreground");
 
     Vector2 pos(0, 0);
+
+    SpriteRenderer* rendererBoss = new SpriteRenderer();
+    rendererBoss->setPosition(Vector2(0, 0));
+    rendererBoss->setActive(true);
+
+    Sprite* sprtB(nullptr);
+    engine->getResourceManager()->tryGetSprite("Enemy_1", &sprtB);
+    rendererBoss->setSprite(sprtB);
+    rendererBoss->setLayer("Foreground");
+
+    rendererBoss->setSortingOrder(max(rendererBoss->positionGrid.y * 10, 0));
 
     auto inputs = engine->getInputs();
     while (true)
@@ -47,7 +59,10 @@ int main()
         dir.y *= delta * 32.0f;
 
         pos += dir;
+
         renderer->setPosition(pos);
+        renderer->setSortingOrder(max(renderer->positionGrid.y * 10, 0));
+        //rendererBoss->setPosition(-pos);
 
         const auto frm = time->getFrames();
         if (frm % 1 == 0) {
@@ -69,5 +84,4 @@ int main()
             //rend->addInfoString(0, 3, ss.str().c_str());
         }
     }
-    delete engine;
 }

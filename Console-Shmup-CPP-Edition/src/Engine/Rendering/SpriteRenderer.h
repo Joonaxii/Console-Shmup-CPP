@@ -14,6 +14,7 @@ public:
     SortingLayer layer;
 
     void setLayer(const std::string name);
+    void setSortingOrder(const unsigned short order);
     void setPosition(const Vector2& position);    
 
     Sprite* getSprite();

@@ -1,7 +1,7 @@
 ﻿#define _USE_MATH_DEFINES
 #define _WIN32_WINNT 0x0500
 
-#include "Includes.h"
+#include "../../Includes.h"
 #include "windows.h"
 #include "fcntl.h"
 #include "io.h"
@@ -12,7 +12,7 @@
 
 Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 }, _bufferStream(), _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
 
-    for (size_t i = 0; i < 4; i++)
+    for (size_t i = 0; i < 6; i++)
     {
         _layerToIndex.insert(std::pair<std::string, int>(layers[i], i));
     }
@@ -182,7 +182,7 @@ void Rendering::render() {
 
     //Clear Buffers, the char buffer with the "space" char and depth buffer with 0s 
     memset(&_buffer[GAME_AREA_START], ' ', (CHAR_W * CHAR_H) - GAME_AREA_START);
-    memset(&_depthBuffer[GAME_AREA_START], 0, (CHAR_W * CHAR_H) - GAME_AREA_START);
+    memset(&_depthBuffer[GAME_AREA_START], 0, ((CHAR_W * CHAR_H) - GAME_AREA_START) * 4);
   
     //Insert all active renderers to batch priority queue
     for (size_t i = 0; i < _renderers.size(); i++)
@@ -218,7 +218,8 @@ void Rendering::renderSprite(SpriteRenderer* renderer) {
     const auto pos = renderer->positionGrid;
 
     const unsigned int order = renderer->layer.getUnion();
-
+    std::string str("Sprite Order is: " + std::to_string(order) + "\n");
+    //OutputDebugStringA(str.c_str());
     for (size_t y = 0; y < reso.y; y++)
     {
         signed int yP = pos.y + y;

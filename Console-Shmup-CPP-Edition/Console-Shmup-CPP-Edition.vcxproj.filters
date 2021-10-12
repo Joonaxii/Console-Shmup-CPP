@@ -9,100 +9,149 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{d076e50b-bce7-4eae-aaf8-aec90b8e9e05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Rendering">
+      <UniqueIdentifier>{b4333556-648f-4a54-b859-7693146408c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\IO">
+      <UniqueIdentifier>{12bbee3f-ba6c-482d-81b7-838985226f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Core">
+      <UniqueIdentifier>{adeef0cb-4d3f-43af-86cd-8eb06ecf6f42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Inputs">
+      <UniqueIdentifier>{bc5e49a8-71b3-4fb5-8ecd-4233d662f5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{2813405d-886d-46db-beba-2aea73756182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\IO">
+      <UniqueIdentifier>{48256a58-5850-4e3f-91ed-4920ba937b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Core">
+      <UniqueIdentifier>{9edd6bc2-83cc-4175-9334-ac0af12a7ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Inputs">
+      <UniqueIdentifier>{86cd01bb-1882-4666-a1a9-15a228b233b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Rendering">
+      <UniqueIdentifier>{b488be26-ff84-4192-bc0e-43793520f9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Resources">
+      <UniqueIdentifier>{794f0469-9c87-4685-9302-287f5df9d905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Resources">
+      <UniqueIdentifier>{abe9b778-a126-4a36-b9ab-a5345cc3446f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{5f504fa6-332f-4785-b84b-3785519cf099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{01ace02e-987d-496f-a5c0-183f4cf0f1b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Input\Inputs.cpp">
+      <Filter>Source Files\Engine\Inputs</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Engine.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\IO\FileHelpers.cpp">
+      <Filter>Source Files\Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2Int.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\IO\FilePath.cpp">
+      <Filter>Source Files\Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Rendering\Rendering.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Rendering\SortingLayer.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Rendering\Sprite.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Inputs.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Rendering\SpriteRenderer.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="SortingLayer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Resources\ResourceManager.cpp">
+      <Filter>Source Files\Engine\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Core\Math.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="FileHelpers.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Core\Time.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="FilePath.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Core\Vector2.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Core\Vector2Int.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Rendering.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2Int.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Includes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\Input\Inputs.h">
+      <Filter>Header Files\Engine\Inputs</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\IO\EncodingType.h">
+      <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Inputs.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\IO\FileHelpers.h">
+      <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="SortingLayer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\IO\FilePath.h">
+      <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="EncodingType.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="FilePath.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\Rendering\SortingLayer.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="FileHelpers.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\Rendering\Sprite.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Rendering\SpriteRenderer.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Rendering\Rendering.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Resources\ResourceManager.h">
+      <Filter>Header Files\Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\Vector2Int.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\Math.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\Time.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Core\Vector2.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Sprites\">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

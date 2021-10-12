@@ -9,7 +9,7 @@ public:
     SortingLayer(const std::string layerName, const unsigned short order);
     ~SortingLayer();
 
-    unsigned short orderInLayer;
+    signed short orderInLayer;
     unsigned short layerIndex;
 
     const unsigned int getUnion() const;
