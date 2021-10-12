@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <sstream>
 
-static const std::string layers[6] { "Default", "Background", "EnemiesBG", "EnemiesFG", "Foreground", "UI"};
+static const std::string layers[7] { "Default", "Background", "EnemiesBG", "EnemiesFG", "Foreground", "UI", "Debug"};
 
 class SpriteRenderer;
 class Rendering

@@ -51,107 +51,129 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{01ace02e-987d-496f-a5c0-183f4cf0f1b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Collision">
+      <UniqueIdentifier>{bec870b9-93b9-480b-a354-177fff3abe0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Collision">
+      <UniqueIdentifier>{3886e1f1-07cb-4bc9-8e8c-e728a06a2cc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="src/Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Input\Inputs.cpp">
+    <ClCompile Include="src/Engine\Input\Inputs.cpp">
       <Filter>Source Files\Engine\Inputs</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Engine.cpp">
+    <ClCompile Include="src/Engine\Engine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\IO\FileHelpers.cpp">
+    <ClCompile Include="src/Engine\IO\FileHelpers.cpp">
       <Filter>Source Files\Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\IO\FilePath.cpp">
+    <ClCompile Include="src/Engine\IO\FilePath.cpp">
       <Filter>Source Files\Engine\IO</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Game.cpp">
+    <ClCompile Include="src/Game\Game.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Rendering\Rendering.cpp">
+    <ClCompile Include="src/Engine\Rendering\Rendering.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Rendering\SortingLayer.cpp">
+    <ClCompile Include="src/Engine\Rendering\SortingLayer.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Rendering\Sprite.cpp">
+    <ClCompile Include="src/Engine\Rendering\Sprite.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Rendering\SpriteRenderer.cpp">
+    <ClCompile Include="src/Engine\Rendering\SpriteRenderer.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Resources\ResourceManager.cpp">
+    <ClCompile Include="src/Engine\Resources\ResourceManager.cpp">
       <Filter>Source Files\Engine\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Math.cpp">
+    <ClCompile Include="src/Engine\Core\Math.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Time.cpp">
+    <ClCompile Include="src/Engine\Core\Time.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Vector2.cpp">
+    <ClCompile Include="src/Engine\Core\Vector2.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Vector2Int.cpp">
+    <ClCompile Include="src/Engine\Core\Vector2Int.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Collision\CollisionSystem.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Collision\Collider2D.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Core\Object.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Includes.h">
+    <ClInclude Include="src/Includes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Input\Inputs.h">
+    <ClInclude Include="src/Engine\Input\Inputs.h">
       <Filter>Header Files\Engine\Inputs</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\IO\EncodingType.h">
+    <ClInclude Include="src/Engine\IO\EncodingType.h">
       <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\IO\FileHelpers.h">
+    <ClInclude Include="src/Engine\IO\FileHelpers.h">
       <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\IO\FilePath.h">
+    <ClInclude Include="src/Engine\IO\FilePath.h">
       <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Game.h">
+    <ClInclude Include="src/Game\Game.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Engine.h">
+    <ClInclude Include="src/Engine\Engine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Rendering\SortingLayer.h">
+    <ClInclude Include="src/Engine\Rendering\SortingLayer.h">
       <Filter>Header Files\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Rendering\Sprite.h">
+    <ClInclude Include="src/Engine\Rendering\Sprite.h">
       <Filter>Header Files\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Rendering\SpriteRenderer.h">
+    <ClInclude Include="src/Engine\Rendering\SpriteRenderer.h">
       <Filter>Header Files\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Rendering\Rendering.h">
+    <ClInclude Include="src/Engine\Rendering\Rendering.h">
       <Filter>Header Files\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Resources\ResourceManager.h">
+    <ClInclude Include="src/Engine\Resources\ResourceManager.h">
       <Filter>Header Files\Engine\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Core\Vector2Int.h">
+    <ClInclude Include="src/Engine\Core\Vector2Int.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Core\Math.h">
+    <ClInclude Include="src/Engine\Core\Math.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Core\Time.h">
+    <ClInclude Include="src/Engine\Core\Time.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Core\Vector2.h">
+    <ClInclude Include="src/Engine\Core\Vector2.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\Sprites\">
-      <Filter>Resource Files</Filter>
-    </None>
+    <ClInclude Include="src\Engine\Collision\CollisionSystem.h">
+      <Filter>Header Files\Engine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Collision\ColliderType.h">
+      <Filter>Header Files\Engine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Collision\Collider2D.h">
+      <Filter>Header Files\Engine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Object.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

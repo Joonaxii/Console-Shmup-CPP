@@ -18,6 +18,10 @@ void SpriteRenderer::setSortingOrder(const unsigned short order) {
 	this->layer.orderInLayer = order;
 }
 
+const Vector2 SpriteRenderer::getPosition() const {
+	return _position;
+}
+
 void SpriteRenderer::setPosition(const Vector2& position) {
 
 	_position.x = position.x;

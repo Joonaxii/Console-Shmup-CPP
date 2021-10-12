@@ -12,7 +12,7 @@
 
 Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 }, _bufferStream(), _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
 
-    for (size_t i = 0; i < 6; i++)
+    for (size_t i = 0; i < 7; i++)
     {
         _layerToIndex.insert(std::pair<std::string, int>(layers[i], i));
     }

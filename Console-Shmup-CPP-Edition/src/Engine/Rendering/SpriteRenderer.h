@@ -17,6 +17,8 @@ public:
     void setSortingOrder(const unsigned short order);
     void setPosition(const Vector2& position);    
 
+    const Vector2 getPosition() const;
+
     Sprite* getSprite();
 
     const bool canRender() const;

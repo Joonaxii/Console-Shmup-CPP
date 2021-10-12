@@ -22,7 +22,6 @@ int main()
     renderer->setPosition(Vector2(0, 0));
     renderer->setActive(true);
 
-
     Sprite* sprt(nullptr);
     engine->getResourceManager()->tryGetSprite("Player", &sprt);
     renderer->setSprite(sprt);
@@ -38,8 +37,6 @@ int main()
     engine->getResourceManager()->tryGetSprite("Enemy_1", &sprtB);
     rendererBoss->setSprite(sprtB);
     rendererBoss->setLayer("Foreground");
-
-    rendererBoss->setSortingOrder(max(rendererBoss->positionGrid.y * 10, 0));
 
     auto inputs = engine->getInputs();
     while (true)
@@ -61,8 +58,10 @@ int main()
         pos += dir;
 
         renderer->setPosition(pos);
-        renderer->setSortingOrder(max(renderer->positionGrid.y * 10, 0));
-        //rendererBoss->setPosition(-pos);
+        rendererBoss->setPosition(-pos);
+
+        renderer->setSortingOrder(max(renderer->getPosition().y * 10, 0));
+        rendererBoss->setSortingOrder(max(rendererBoss->getPosition().y * 10, 0));
 
         const auto frm = time->getFrames();
         if (frm % 1 == 0) {
@@ -71,17 +70,17 @@ int main()
             ss << "Fps: " << time->getFramerate() << "      ";
             rend->addInfoString(0, 0, ss.str().c_str());
 
-            //std::ostringstream().swap(ss);
-            //ss << "Time: " << time->getTime() << "       ";
-            //rend->addInfoString(0, 1, ss.str().c_str());
+            std::ostringstream().swap(ss);
+            ss << "Time: " << time->getTime() << "       ";
+            rend->addInfoString(0, 1, ss.str().c_str());
 
-            //std::ostringstream().swap(ss);
-            //ss << "Delta: " << time->getDeltaTime() << "     ";
-            //rend->addInfoString(0, 2, ss.str().c_str());
+            std::ostringstream().swap(ss);
+            ss << "Delta: " << time->getDeltaTime() << "     ";
+            rend->addInfoString(0, 2, ss.str().c_str());
 
-            //std::ostringstream().swap(ss);
-            //ss << "Frames: " << frm << "     ";
-            //rend->addInfoString(0, 3, ss.str().c_str());
+            std::ostringstream().swap(ss);
+            ss << "Frames: " << frm << "     ";
+            rend->addInfoString(0, 3, ss.str().c_str());
         }
     }
 }
