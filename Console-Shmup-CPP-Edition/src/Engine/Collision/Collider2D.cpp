@@ -1,7 +1,10 @@
 #include "CollisionSystem.h"
 #include "Collider2D.h"
+#include "../../../Test.h"
 
 bool Collider2D::collidesWith(const Collider2D& other) {
+
+	Test* t = static_cast<Test*>(other._owner);
 
 	switch (_type) {
 

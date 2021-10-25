@@ -183,7 +183,7 @@ void Rendering::render() {
     //Clear Buffers, the char buffer with the "space" char and depth buffer with 0s 
     memset(&_buffer[GAME_AREA_START], ' ', (CHAR_W * CHAR_H) - GAME_AREA_START);
     memset(&_depthBuffer[GAME_AREA_START], 0, ((CHAR_W * CHAR_H) - GAME_AREA_START) * 4);
-  
+
     //Insert all active renderers to batch priority queue
     for (size_t i = 0; i < _renderers.size(); i++)
     {
@@ -218,8 +218,6 @@ void Rendering::renderSprite(SpriteRenderer* renderer) {
     const auto pos = renderer->positionGrid;
 
     const unsigned int order = renderer->layer.getUnion();
-    std::string str("Sprite Order is: " + std::to_string(order) + "\n");
-    //OutputDebugStringA(str.c_str());
     for (size_t y = 0; y < reso.y; y++)
     {
         signed int yP = pos.y + y;
@@ -256,6 +254,7 @@ void Rendering::gotoxy(short x, short y) {
 }
 
 void Rendering::setScreenSize(const int x, const int y, const int w, const int h, const int cW, const int cH) {
+
     HANDLE hConsoleOutput;
     COORD coord;
     CONSOLE_SCREEN_BUFFER_INFO  ConsoleInfo;

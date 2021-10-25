@@ -2,7 +2,6 @@
 #include "../Core/Math.h"
 
 CollisionSystem::CollisionSystem() : _colliderCount(0), _colliders() { }
-
 CollisionSystem::~CollisionSystem() { }
 
 unsigned int CollisionSystem::registerCollider(Collider2D* collider) {

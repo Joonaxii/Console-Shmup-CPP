@@ -15,12 +15,12 @@ private:
 
 	void* _owner;
 
-	ColliderType _type;
 	Vector2 _position;
 
 	Vector2 _min;
 	Vector2 _max;
 
+	ColliderType _type;
 	Vector2 _size;
 	float _radSqrd;
 

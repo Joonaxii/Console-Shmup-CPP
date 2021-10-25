@@ -20,6 +20,9 @@ public:
 
     Vector2 operator-();
 
+    void set(const Vector2& v);
+    void set(const float x, const float y);
+
     std::string toString();
 };
 

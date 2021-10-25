@@ -26,13 +26,21 @@ bool Vector2::operator!=(const Vector2& other) {
     return x != other.x && y != other.y;
 }
 
-Vector2 Vector2::operator-() {
-   
+Vector2 Vector2::operator-() {   
     return Vector2(-x, -y);
 }
 
-std::string Vector2::toString()
-{
+void Vector2::set(const Vector2& other) {
+    x = other.x;
+    y = other.y;
+}
+
+void Vector2::set(const float x, const float y) {
+    this->x = x;
+    this->y = y;
+}
+
+std::string Vector2::toString() {
     std::ostringstream str;
     str << "(" << x << "," << y << ")";
     return str.str();
