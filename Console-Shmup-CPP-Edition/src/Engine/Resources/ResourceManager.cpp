@@ -6,8 +6,26 @@ const std::string ResourceManager::SPRITE_PATH = "res/Sprites/";
 const std::locale ResourceManager::LOCALE = std::locale("en_US.UTF-8");
 
 ResourceManager::ResourceManager() : _sprites() {
+	loadSprites();
+}
 
-    std::vector<FilePath*> filePaths;
+ResourceManager::~ResourceManager() { }
+
+bool ResourceManager::tryGetSprite(const std::string name, Sprite** spriteOut) {
+
+	auto iter = _sprites.find(name);
+	if (iter == _sprites.end()) 
+	{ 
+		*spriteOut = nullptr;
+		return false; 
+	}
+
+	*spriteOut = _sprites[name];
+	return true;
+}
+
+void ResourceManager::loadSprites() {
+	std::vector<FilePath*> filePaths;
 	if (FileHelpers::getAllFilesByExtension(SPRITE_PATH, filePaths, ".sprt")) {
 
 		for (size_t i = 0; i < filePaths.size(); i++)
@@ -24,23 +42,7 @@ ResourceManager::ResourceManager() : _sprites() {
 			delete file;
 		}
 	}
-
 	filePaths.clear();
-}
-
-ResourceManager::~ResourceManager() { }
-
-bool ResourceManager::tryGetSprite(const std::string name, Sprite** spriteOut) {
-
-	auto iter = _sprites.find(name);
-	if (iter == _sprites.end()) 
-	{ 
-		*spriteOut = nullptr;
-		return false; 
-	}
-
-	*spriteOut = _sprites[name];
-	return true;
 }
 
 int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, const std::locale locale) {

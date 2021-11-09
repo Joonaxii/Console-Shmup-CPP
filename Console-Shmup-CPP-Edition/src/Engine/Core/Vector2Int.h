@@ -1,8 +1,17 @@
 #pragma once
+#include <functional>
 #include <string>
+
 class Vector2Int
 {
 public:
+
+    struct hasher {
+        size_t operator()(const Vector2Int& v) {
+            return ((std::hash<int>()(v.x) ^ (std::hash<int>()(v.y) << 1)));
+        }
+    };
+
     int x;
     int y;
 

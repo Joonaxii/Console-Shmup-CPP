@@ -6,6 +6,14 @@ Vector2::Vector2() : x(0), y(0) {}
 Vector2::Vector2(float x, float y) : x(x), y(y) {}
 Vector2::~Vector2() {}
 
+Vector2 Vector2::operator+(const Vector2& a) {
+    return Vector2(x + a.x, y + a.y);
+}
+
+Vector2 Vector2::operator-(const Vector2& a) {
+    return Vector2(x - a.x, y - a.y);
+}
+
 Vector2 Vector2::operator+=(const Vector2& other) {
     x += other.x;
     y += other.y;

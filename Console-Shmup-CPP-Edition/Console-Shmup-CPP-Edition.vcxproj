@@ -156,6 +156,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Rendering\SpriteFactory.cpp" />
+    <ClCompile Include="src\Engine\Collision\CollisionMatrix.cpp" />
+    <ClCompile Include="src\Engine\Collision\ColliderData.cpp" />
+    <ClCompile Include="src\Game\Entities\Player.cpp" />
     <ClCompile Include="src\Engine\Core\ObjectPool.cpp" />
     <ClCompile Include="src\Engine\Collision\CollisionGrid.cpp" />
     <ClCompile Include="src\Game\Entities\Entity.cpp" />
@@ -177,16 +181,19 @@
     <ClCompile Include="src/Engine\Core\Vector2.cpp" />
     <ClCompile Include="src/Engine\Core\Vector2Int.cpp" />
     <ClCompile Include="src\Engine\Collision\CollisionSystem.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Rendering\SpriteFactory.h" />
+    <ClInclude Include="src\Engine\Collision\CollisionMatrix.h" />
+    <ClInclude Include="src\Engine\Collision\CollisionLayer.h" />
+    <ClInclude Include="src\Engine\Collision\ColliderData.h" />
+    <ClInclude Include="src\Game\Entities\Player.h" />
     <ClInclude Include="src\Engine\Core\ObjectPool.h" />
     <ClInclude Include="src\Engine\Collision\CollisionGrid.h" />
     <ClInclude Include="src\Game\Entities\Entity.h" />
     <ClInclude Include="src\Engine\Core\Object.h" />
     <ClInclude Include="src\Engine\Collision\Collider2D.h" />
     <ClInclude Include="src\Engine\Collision\ColliderType.h" />
-    <ClInclude Include="src/Engine\IO\EncodingType.h" />
     <ClInclude Include="src/Engine\Engine.h" />
     <ClInclude Include="src/Engine\IO\FileHelpers.h" />
     <ClInclude Include="src/Engine\IO\FilePath.h" />
@@ -203,7 +210,6 @@
     <ClInclude Include="src/Engine\Core\Vector2.h" />
     <ClInclude Include="src/Engine\Core\Vector2Int.h" />
     <ClInclude Include="src\Engine\Collision\CollisionSystem.h" />
-    <ClInclude Include="Test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

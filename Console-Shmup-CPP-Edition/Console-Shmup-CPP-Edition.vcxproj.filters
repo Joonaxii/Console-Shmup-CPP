@@ -57,6 +57,12 @@
     <Filter Include="Source Files\Engine\Collision">
       <UniqueIdentifier>{3886e1f1-07cb-4bc9-8e8c-e728a06a2cc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Entities">
+      <UniqueIdentifier>{0c2e1351-fb32-4348-86f9-cc07a9d4c8bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Entities">
+      <UniqueIdentifier>{be87511a-dfd4-44f3-a6b8-6a3aeae7d2d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src/Main.cpp">
@@ -113,16 +119,25 @@
     <ClCompile Include="src\Engine\Core\Object.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Entities\Entity.cpp">
+      <Filter>Source Files\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Entities\Player.cpp">
+      <Filter>Source Files\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Collision\ColliderData.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
+    </ClCompile>
     <ClCompile Include="src\Engine\Core\ObjectPool.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Collision\CollisionMatrix.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Collision\CollisionGrid.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Entities\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
+    <ClCompile Include="src\Engine\Rendering\SpriteFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,9 +147,6 @@
     </ClInclude>
     <ClInclude Include="src/Engine\Input\Inputs.h">
       <Filter>Header Files\Engine\Inputs</Filter>
-    </ClInclude>
-    <ClInclude Include="src/Engine\IO\EncodingType.h">
-      <Filter>Header Files\Engine\IO</Filter>
     </ClInclude>
     <ClInclude Include="src/Engine\IO\FileHelpers.h">
       <Filter>Header Files\Engine\IO</Filter>
@@ -187,16 +199,28 @@
     <ClInclude Include="src\Engine\Core\Object.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Entities\Entity.h">
+      <Filter>Header Files\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Entities\Player.h">
+      <Filter>Header Files\Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Collision\ColliderData.h">
+      <Filter>Header Files\Engine\Collision</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Core\ObjectPool.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Collision\CollisionLayer.h">
+      <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Collision\CollisionGrid.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Entities\Entity.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Engine\Collision\CollisionMatrix.h">
+      <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
+    <ClInclude Include="src\Engine\Rendering\SpriteFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

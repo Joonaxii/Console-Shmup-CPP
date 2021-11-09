@@ -11,9 +11,9 @@ public:
     Object(const std::string name);
     ~Object();
 
-    const unsigned int getID();
+    const unsigned int getID() const;
 
-    const bool getIsAlive() const;
+    const bool getIsActive() const;
     const std::string getName() const;
 
     virtual void setPosition(const Vector2& position);
@@ -25,7 +25,8 @@ public:
 protected:
 
     std::string _name;
-    bool _isAlive;
+    bool _isActive;
+
     Vector2 _position;
     float _itClock;
 

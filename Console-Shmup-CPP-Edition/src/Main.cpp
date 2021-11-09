@@ -1,5 +1,6 @@
 #include "Includes.h"
 #include "Math.h"
+#include "Engine/Collision/ColliderData.h"
 #include <sstream>
 
 Engine* Engine::_instance;
@@ -14,6 +15,9 @@ int main()
     engine->getRendering()->clearInfoRegion();
 
     std::ostringstream ss;
+
+    std::string str("Size of ColliderData is '" + std::to_string(sizeof(ColliderData)) + "'");
+    OutputDebugStringA(str.c_str());
 
     const auto time = engine->getTime();
     const auto rend = engine->getRendering();

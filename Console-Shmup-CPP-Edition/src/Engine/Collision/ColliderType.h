@@ -1,8 +1,8 @@
 #pragma once
 
-enum class ColliderType{
+enum class ColliderType : char {
 
 	POINT,
 	CIRCLE,
-	BOX
+	BOX,
 };

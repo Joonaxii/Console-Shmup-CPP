@@ -1,7 +1,6 @@
 #pragma once
-#include "Includes.h"
+#include "../../Includes.h"
 
-class Vector2Int;
 class Vector2Int;
 class Sprite
 {
