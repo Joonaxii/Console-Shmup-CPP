@@ -12,5 +12,7 @@ public:
     Sprite();
     Sprite(const char* pix, Vector2Int reso, Vector2 pivot);
     ~Sprite();
+
+    void draw(Transform* tr, char* buffer, unsigned int* depthBuffer, const unsigned int depth, const int bufferW, const int bufferH, const int yOffset, const bool flipX, const bool flipY);
 };
 

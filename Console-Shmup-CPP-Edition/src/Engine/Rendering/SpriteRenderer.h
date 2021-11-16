@@ -1,6 +1,7 @@
 #pragma once
-#include "Includes.h"
+#include "../../Includes.h"
 #include "string"
+#include "../../../Transform.h"
 
 class Vector2;
 class Sprite;
@@ -10,14 +11,13 @@ public:
     SpriteRenderer();
     ~SpriteRenderer();
 
-    Vector2Int positionGrid;
     SortingLayer layer;
+
+    void setTransform(Transform* transform);
 
     void setLayer(const std::string name);
     void setSortingOrder(const unsigned short order);
-    void setPosition(const Vector2& position);    
-
-    const Vector2 getPosition() const;
+    void draw(char* buffer, unsigned int* depthBuffer);
 
     Sprite* getSprite();
 
@@ -34,6 +34,6 @@ private:
     bool _isActive;
     Rendering* _rendering;
     Sprite* _sprite;
-    Vector2 _position;
+    Transform* _transform;
 };
 

@@ -212,7 +212,8 @@ void Rendering::render() {
 
 void Rendering::renderSprite(SpriteRenderer* renderer) {
 
-    const Sprite* sprt = renderer->getSprite();
+    renderer->draw(_buffer, _depthBuffer);
+    /*const Sprite* sprt = renderer->getSprite();
 
     const auto reso = sprt->resolution;
     const auto pos = renderer->positionGrid;
@@ -242,7 +243,7 @@ void Rendering::renderSprite(SpriteRenderer* renderer) {
             _buffer[i] = c;
             _depthBuffer[i] = order;
         }
-    }
+    }*/
 }
 
 void Rendering::gotoxy(short x, short y) {
@@ -265,7 +266,18 @@ void Rendering::setScreenSize(const int x, const int y, const int w, const int h
     coord.X = cW;
     coord.Y = cH;
 
-    SetConsoleScreenBufferSize(hConsoleOutput, coord);
+    CONSOLE_FONT_INFOEX cfi;
+    cfi.cbSize = sizeof cfi;
+    cfi.nFont = 0;
+    cfi.dwFontSize.X = 8;
+    cfi.dwFontSize.Y = 8;
+    cfi.FontFamily = 48;
+    cfi.FontWeight = FW_NORMAL;
 
+    wcscpy_s(cfi.FaceName, L"Terminal");
+    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+
+    SetConsoleScreenBufferSize(hConsoleOutput, coord);
     MoveWindow(console, x, y, w, h, TRUE);
+
 }

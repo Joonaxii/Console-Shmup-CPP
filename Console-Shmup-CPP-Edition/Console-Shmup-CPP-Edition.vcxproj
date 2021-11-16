@@ -183,6 +183,7 @@
     <ClCompile Include="src\Engine\Math\Vector2.cpp" />
     <ClCompile Include="src\Engine\Math\Vector2Int.cpp" />
     <ClCompile Include="src\Engine\Collision\CollisionSystem.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Math\Matrix3x3.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="src\Engine\Math\Vector2.h" />
     <ClInclude Include="src\Engine\Math\Vector2Int.h" />
     <ClInclude Include="src\Engine\Collision\CollisionSystem.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

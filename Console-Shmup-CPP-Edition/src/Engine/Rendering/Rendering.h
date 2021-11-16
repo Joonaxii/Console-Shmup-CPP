@@ -15,10 +15,10 @@ class Rendering
     static const int SCREEN_H = 1080;
 
     static const int SCREEN_W_S = (int)(SCREEN_W / 1.75);
-    static const int SCREEN_H_S = (int)(SCREEN_H / 2);
+    static const int SCREEN_H_S = (int)(SCREEN_H / 1.5);
 
     static const int RES_X = SCREEN_W_S + 18;
-    static const int RES_Y = SCREEN_H_S + 240;
+    static const int RES_Y = SCREEN_H_S + 48;
 
     static const int OFFSET_X = (SCREEN_W / 2) - (RES_X / 2);
     static const int OFFSET_Y = (SCREEN_H / 2) - (RES_Y / 2);
@@ -26,7 +26,7 @@ class Rendering
 public:
 
     static const int CHAR_W = (int)(SCREEN_W_S / 8);
-    static const int CHAR_H = (int)(SCREEN_H_S / 16) + 12;
+    static const int CHAR_H = (int)(SCREEN_H_S / 8);
 
     static const int TITLE_START = 0;
     static const int TITLE_H = 3;

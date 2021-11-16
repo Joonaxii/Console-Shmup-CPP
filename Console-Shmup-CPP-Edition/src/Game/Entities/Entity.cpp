@@ -12,10 +12,11 @@ void Entity::setPosition(const Vector2& position) {
 	Object::setPosition(position);
 
 	_collider.setPosition(_position);
-	_renderer.setPosition(_position);
+	//_renderer.setPosition(_position);
 }
 
 bool Entity::takeDamage(const int damage, Object* damageDealer) {
+	return false;
 }
 
 void Entity::kill(bool silent, Object* killer) {
