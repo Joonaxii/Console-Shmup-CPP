@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../Core/Vector2.h"
+#include "../Math/Vector2.h"
 
 class Collider2D;
 class CollisionSystem

@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Engine/Collision/Collider2D.h"
 #include "../../Engine/Core/Object.h"
-#include "../../Engine/Core/Vector2.h"
+#include "../../Engine/Math/Vector2.h"
 #include "../../Includes.h"
 
 class Entity : public Object
@@ -15,6 +15,8 @@ public:
     virtual bool takeDamage(const int damage, Object* damageDealer);
     virtual void kill(bool silent, Object* killer);
     virtual bool update(const float deltaTime);
+
+    virtual void setPosition(const Vector2& position);
 
     void setMaxHP(const int newHP, const bool setCurrent = false);
 

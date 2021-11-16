@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Vector2.h"
+#include "../Math/Vector2.h"
 #include "ColliderType.h"
 
 class ColliderData

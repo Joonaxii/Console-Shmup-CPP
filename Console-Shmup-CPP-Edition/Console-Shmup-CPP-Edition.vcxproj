@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Math\Matrix3x3.cpp" />
     <ClCompile Include="src\Game\Entities\Enemies\Enemy.cpp" />
     <ClCompile Include="src\Engine\Rendering\SpriteFactory.cpp" />
     <ClCompile Include="src\Engine\Collision\CollisionMatrix.cpp" />
@@ -175,15 +176,16 @@
     <ClCompile Include="src/Engine\Rendering\Rendering.cpp" />
     <ClCompile Include="src/Engine\Resources\ResourceManager.cpp" />
     <ClCompile Include="src/Engine\Rendering\SortingLayer.cpp" />
-    <ClCompile Include="src/Engine\Core\Math.cpp" />
+    <ClCompile Include="src\Engine\Math\Math.cpp" />
     <ClCompile Include="src/Engine\Rendering\Sprite.cpp" />
     <ClCompile Include="src/Engine\Rendering\SpriteRenderer.cpp" />
     <ClCompile Include="src/Engine\Core\Time.cpp" />
-    <ClCompile Include="src/Engine\Core\Vector2.cpp" />
-    <ClCompile Include="src/Engine\Core\Vector2Int.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector2.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector2Int.cpp" />
     <ClCompile Include="src\Engine\Collision\CollisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Math\Matrix3x3.h" />
     <ClInclude Include="src\Game\Entities\Enemies\Enemy.h" />
     <ClInclude Include="src\Engine\Rendering\SpriteFactory.h" />
     <ClInclude Include="src\Engine\Collision\CollisionMatrix.h" />
@@ -202,15 +204,15 @@
     <ClInclude Include="src/Game\Game.h" />
     <ClInclude Include="src/Includes.h" />
     <ClInclude Include="src/Engine\Input\Inputs.h" />
-    <ClInclude Include="src/Engine\Core\Math.h" />
+    <ClInclude Include="src\Engine\Math\Math.h" />
     <ClInclude Include="src/Engine\Rendering\Rendering.h" />
     <ClInclude Include="src/Engine\Resources\ResourceManager.h" />
     <ClInclude Include="src/Engine\Rendering\SortingLayer.h" />
     <ClInclude Include="src/Engine\Rendering\Sprite.h" />
     <ClInclude Include="src/Engine\Rendering\SpriteRenderer.h" />
     <ClInclude Include="src/Engine\Core\Time.h" />
-    <ClInclude Include="src/Engine\Core\Vector2.h" />
-    <ClInclude Include="src/Engine\Core\Vector2Int.h" />
+    <ClInclude Include="src\Engine\Math\Vector2.h" />
+    <ClInclude Include="src\Engine\Math\Vector2Int.h" />
     <ClInclude Include="src\Engine\Collision\CollisionSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

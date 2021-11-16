@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include "Sprite.h"
-#include "../Core/Vector2Int.h"
+#include "../Math/Vector2Int.h"
 
 class SpriteFactory
 {

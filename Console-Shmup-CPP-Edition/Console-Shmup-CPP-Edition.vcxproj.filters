@@ -98,16 +98,16 @@
     <ClCompile Include="src/Engine\Resources\ResourceManager.cpp">
       <Filter>Source Files\Engine\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="src/Engine\Core\Math.cpp">
+    <ClCompile Include="src\Engine\Math\Math.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src/Engine\Core\Time.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src/Engine\Core\Vector2.cpp">
+    <ClCompile Include="src\Engine\Math\Vector2.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src/Engine\Core\Vector2Int.cpp">
+    <ClCompile Include="src\Engine\Math\Vector2Int.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Collision\CollisionSystem.cpp">
@@ -138,6 +138,12 @@
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Rendering\SpriteFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Entities\Enemies\Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Math\Matrix3x3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,16 +181,16 @@
     <ClInclude Include="src/Engine\Resources\ResourceManager.h">
       <Filter>Header Files\Engine\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="src/Engine\Core\Vector2Int.h">
+    <ClInclude Include="src\Engine\Math\Vector2Int.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src/Engine\Core\Math.h">
+    <ClInclude Include="src\Engine\Math\Math.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src/Engine\Core\Time.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src/Engine\Core\Vector2.h">
+    <ClInclude Include="src\Engine\Math\Vector2.h">
       <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Collision\CollisionSystem.h">
@@ -221,6 +227,12 @@
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Rendering\SpriteFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Entities\Enemies\Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Math\Matrix3x3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

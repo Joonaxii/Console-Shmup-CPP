@@ -1,5 +1,5 @@
 #include "CollisionSystem.h"
-#include "../Core/Math.h"
+#include "../Math/Math.h"
 
 CollisionSystem::CollisionSystem() : _colliderCount(0), _colliders(0) { }
 CollisionSystem::~CollisionSystem() { }

@@ -3,8 +3,8 @@
 #include "Engine/Resources/ResourceManager.h"
 #include "Engine/Input/Inputs.h"
 
-#include "Engine/Core/Vector2.h"
-#include "Engine/Core/Vector2Int.h"
+#include "Engine/Math/Vector2.h"
+#include "Engine/Math/Vector2Int.h"
 
 #include "Engine/Rendering/SortingLayer.h"
 #include "Engine/Rendering/Sprite.h"
