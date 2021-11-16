@@ -1,6 +1,7 @@
 #include "Includes.h"
 #include "Math.h"
 #include "Engine/Collision/ColliderData.h"
+#include "Game/Entities/Entity.h"
 #include <sstream>
 
 Engine* Engine::_instance;
@@ -48,6 +49,7 @@ int main()
         engine->update();
 
         float delta = time->getDeltaTime();
+
         Vector2 dir(0, 0);
 
         dir.x += inputs->isKeyHeld(Inputs::MOVE_RIGHT);

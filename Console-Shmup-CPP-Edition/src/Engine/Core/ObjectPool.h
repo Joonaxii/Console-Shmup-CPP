@@ -3,6 +3,7 @@
 #include <functional>
 #include "Object.h"
 
+class Object;
 class ObjectPool
 {
 public:

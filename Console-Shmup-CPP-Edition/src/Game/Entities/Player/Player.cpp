@@ -1,9 +1,9 @@
 #include "windows.h"
 #include "Player.h"
-#include "Entity.h"
-#include "../../Engine/Collision/Collider2D.h"
+#include "../Entity.h"
+#include "../../../Engine/Collision/Collider2D.h"
 
-Player::Player() { }
+Player::Player() : Entity("Player", 8) { }
 Player::~Player() { }
 
 void Player::onCollisionEnter(Collider2D& other) {

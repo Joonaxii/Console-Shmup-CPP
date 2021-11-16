@@ -5,13 +5,20 @@
 class ColliderData
 {
 public:
+
 	ColliderData();
-	ColliderData(Vector2 offset);
-	ColliderData(Vector2 offset, float radius);
-	ColliderData(Vector2 offset, Vector2 size);
+
+	ColliderData(const Vector2 offset);
+	ColliderData(const Vector2 offset, const float radius);
+	ColliderData(const Vector2 offset, const Vector2 size);
+
+	const Vector2 getMin() const;
+	const Vector2 getMax() const;
+
+	const bool collidesWith(const ColliderData& other) const;
+    void copyFrom(const ColliderData& other);
 
 	void update(Vector2& center);
-	bool collidesWith(const ColliderData& other);
 
 private:
 

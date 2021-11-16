@@ -1,7 +1,7 @@
 #include "ColliderData.h"
 #include "CollisionSystem.h"
 
-bool ColliderData::collidesWith(const ColliderData& other) {
+const bool ColliderData::collidesWith(const ColliderData& other) const {
 	switch (_type) {
 	case ColliderType::POINT:
 		switch (other._type) {
@@ -41,7 +41,25 @@ bool ColliderData::collidesWith(const ColliderData& other) {
 
 ColliderData::ColliderData() : _type(), _size(0, 0), _radSqrd(0), _center(0, 0), _min(0, 0), _max(0, 0), _offset(0, 0) { }
 
-ColliderData::ColliderData(Vector2 offset) :  { }
+ColliderData::ColliderData(const Vector2 offset) : _type(ColliderType::POINT), _size(0, 0), _radSqrd(0), _center(0, 0), _min(0, 0), _max(0, 0), _offset(offset) { }
+ColliderData::ColliderData(const Vector2 offset, const float radius) : _type(ColliderType::CIRCLE), _size(radius, radius), _radSqrd(radius * radius), _center(0, 0), _min(0, 0), _max(0, 0), _offset(offset) { }
+ColliderData::ColliderData(const Vector2 offset, const Vector2 size) : _type(ColliderType::POINT), _size(size), _radSqrd(0), _center(0, 0), _min(0, 0), _max(0, 0), _offset(offset) { }
+
+const Vector2 ColliderData::getMin() const { return Vector2(_min); }
+const Vector2 ColliderData::getMax() const { return Vector2(_max); }
+
+void ColliderData::copyFrom(const ColliderData& other){
+
+	_type = other._type;
+
+	_size.x = other._size.x;
+	_size.y = other._size.y;
+
+	_offset.x = other._offset.x;
+	_offset.y = other._offset.y;
+
+	_radSqrd = other._radSqrd;
+}
 
 void ColliderData::update(Vector2& center) {
 	_center = center + _offset;
