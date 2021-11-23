@@ -3,11 +3,17 @@
 #include "../Core/Object.h"
 #include <limits>
 
-Collider2D::Collider2D(Object* owner) : _min(0, 0), _max(0, 0), _numOfColliders(0), _colliderData(nullptr), _owner(owner) { }
+Collider2D::Collider2D(Object* owner) : _chunkMask(0)/*, _chunkNodeMasks{0}*/ , _min(0, 0), _max(0, 0), _numOfColliders(0), _colliderData(nullptr), _owner(owner)  {
+	//_id = CollisionSystem::registerCollider(this);
+}
 
 Collider2D::~Collider2D() 
 { 
 	clearColliderData(); 
+}
+
+const unsigned int Collider2D::getID() const {
+	return _id;
 }
 
 void Collider2D::updateColliderData(const ColliderData* colliderData, const unsigned char length) {
@@ -24,7 +30,7 @@ void Collider2D::updateColliderData(const ColliderData* colliderData, const unsi
 
 const bool Collider2D::isValid() const { return _owner == nullptr || _numOfColliders < 1 || _colliderData == nullptr; }
 
-bool Collider2D::collidesWith(const Collider2D& other) {
+const bool Collider2D::collidesWith(const Collider2D& other) const {
 	if (!isValid() || !other.isValid()) { return false; }
 	if (_owner->getID() == other._owner->getID()) { return false; }
 	if (!CollisionSystem::aabbVsAABB(_min, _max, other._min, other._max)) { return false; }
@@ -64,6 +70,25 @@ void Collider2D::update() {
 		_max.x = std::max(_max.x, cMax.x);
 		_max.y = std::max(_max.y, cMax.y);
 	}
+}
+
+void Collider2D::clear() {
+	//memset(_chunkNodeMasks, 0, sizeof(unsigned long long) * CollisionGrid::CHUNK_COUNT);
+	_chunkMask = 0;
+}
+
+bool Collider2D::addCollision(const Collider2D* other) {
+
+	return false;
+}
+
+bool Collider2D::removeCollision(const Collider2D* other) {
+
+	return false;
+}
+
+bool Collider2D::hasCollision(const Collider2D* other) const {
+	return _collisionSet.find(other->getID()) != _collisionSet.end();
 }
 
 void Collider2D::clearColliderData() {

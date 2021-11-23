@@ -45,3 +45,15 @@ const bool CollisionSystem::cicrleVsCircle(const Vector2& pointA, const float ra
 
 	return dX * dX + dY * dY <= radSqrd * radSqrd;
 }
+
+const Collider2D* CollisionSystem::getCollider(const unsigned int id) {
+	return id >= _colliders.size() ? nullptr : _colliders[id];
+}
+
+void CollisionSystem::update() {
+
+	for (size_t i = 0; i < _colliders.size(); i++)
+	{
+		auto cA = _colliders[i];
+	}
+}

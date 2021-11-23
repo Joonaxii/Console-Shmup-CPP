@@ -7,7 +7,7 @@ class Vector2Int
 public:
 
     struct hasher {
-        size_t operator()(const Vector2Int& v) {
+        const size_t operator()(const Vector2Int& v) const {
             return ((std::hash<int>()(v.x) ^ (std::hash<int>()(v.y) << 1)));
         }
     };
@@ -22,8 +22,8 @@ public:
     Vector2Int operator+=(const Vector2Int& other);
     Vector2Int operator-=(const Vector2Int& other);
 
-    bool operator==(const Vector2Int& other);
-    bool operator!=(const Vector2Int& other);
+    const bool operator==(const Vector2Int& other) const;
+    const bool operator!=(const Vector2Int& other) const;
 
     Vector2Int operator-();
 

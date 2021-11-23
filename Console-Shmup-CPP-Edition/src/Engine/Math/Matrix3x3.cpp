@@ -2,13 +2,13 @@
 #include <math.h>
 #include "Math.h"
 
-//////////////  /////////////////
-// m0 m1 m2 //  // m00 m01 m02 //
-//          //  //             //
-// m3 m4 m5 //  // m10 m11 m12 //
-//          //  //             //
-// m6 m7 m8 //  // m20 m21 m22 //
-//////////////  /////////////////
+//////////////---/////////////////
+// m0 m1 m2 //   // m00 m01 m02 //
+//          //   //             //
+// m3 m4 m5 //   // m10 m11 m12 //
+//          //   //             //
+// m6 m7 m8 //   // m20 m21 m22 //
+//////////////---/////////////////
 const Matrix3x3 Matrix3x3::zero = Matrix3x3(0, 0, 0, 0, 0, 0, 0, 0, 0);
 const Matrix3x3 Matrix3x3::identity = Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
@@ -65,12 +65,16 @@ const Vector2 Matrix3x3::movePoint(const Vector2& point) const {
 }
 
 const Vector2 Matrix3x3::rotatePointRev(const Vector2& point) const {
-    return Vector2((point.x * _m[1] - point.y * _m[2]),
-                   (point.y * _m[5] - point.x * _m[4]));
+    return Vector2((point.x * _m[1] + point.y * _m[2]),
+                   (point.y * _m[5] + point.x * _m[4]));
 }
 
 const Vector2 Matrix3x3::multiplyVector(const Vector2& vector) const {
-    return Vector2((vector.x * _m[1] + vector.y * _m[2]) * _m[0], (vector.y * _m[5] + vector.x * _m[4]) * _m[3]);
+    return Vector2((vector.x *_m[1] + vector.y * _m[2]) * _m[0], (vector.y * _m[5] + vector.x * _m[4]) * _m[3]);
+}
+
+const Vector2 Matrix3x3::multiplyAbsVector(const Vector2& vector) const {
+    return Vector2((vector.x * abs(_m[1]) + vector.y * abs(_m[2])) * _m[0], (vector.y * abs(_m[5]) + vector.x * abs(_m[4])) * _m[3]);
 }
 
 const Vector2 Matrix3x3::scaleVector(const Vector2& vector) const {

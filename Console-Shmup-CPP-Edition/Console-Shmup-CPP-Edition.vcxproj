@@ -156,6 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Collision\CollisionGridNode.cpp" />
+    <ClCompile Include="src\Engine\Math\Rect.cpp" />
     <ClCompile Include="src\Engine\Math\Matrix3x3.cpp" />
     <ClCompile Include="src\Game\Entities\Enemies\Enemy.cpp" />
     <ClCompile Include="src\Engine\Rendering\SpriteFactory.cpp" />
@@ -186,6 +188,8 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Collision\CollisionGridNode.h" />
+    <ClInclude Include="src\Engine\Math\Rect.h" />
     <ClInclude Include="src\Engine\Math\Matrix3x3.h" />
     <ClInclude Include="src\Game\Entities\Enemies\Enemy.h" />
     <ClInclude Include="src\Engine\Rendering\SpriteFactory.h" />

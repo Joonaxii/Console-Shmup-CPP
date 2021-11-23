@@ -2,9 +2,9 @@
 #include <string>
 #include "windows.h"
 
-Inputs::Inputs() : _keys{ nullptr }, _previousKeys{ nullptr }, _keyLut(), _indexToKey { MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ENTER, ESC, KEY_Z, KEY_X, KEY_C }
+Inputs::Inputs() : _keys{ nullptr }, _previousKeys{ nullptr }, _keyLut(), _indexToKey { DEBUG_MODE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ENTER, ESC, KEY_Z, KEY_X, KEY_C }
 {
-    for (size_t i = 0; i < 9; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         _keys[i] = new KeyState();
         _previousKeys[i] = new KeyState();
@@ -34,12 +34,33 @@ void Inputs::update()
     }
 }
 
-const bool Inputs::isKeyHeld(const int key) const {
+const bool Inputs::isKeyDown(const int key) const {
+    if (!hasKey(key)) { return false; }
 
-    auto a = _keyLut.find(key);
     const int index = _keyLut.at(key);
     auto v = _keys[index];
-   
+    return v->down;
+}
+
+const bool Inputs::isKeyUp(const int key) const {
+    if (!hasKey(key)) { return false; }
+
+    const int index = _keyLut.at(key);
+    auto v = _keys[index];
+    return v->up;
+}
+
+const bool Inputs::isKeyHeld(const int key) const {
+    if (!hasKey(key)) { return false; }
+
+    const int index = _keyLut.at(key);
+    auto v = _keys[index]; 
     return v->held;
+}
+
+const bool Inputs::hasKey(const int key) const {
+
+    auto a = _keyLut.find(key);
+    return a != _keyLut.end();
 }
 

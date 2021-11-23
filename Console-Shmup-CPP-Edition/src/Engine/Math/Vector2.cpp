@@ -28,6 +28,14 @@ const float Vector2::angleRadians(const Vector2& ref, const bool isSigned) const
 	return isSigned ? acosf(clamp(dot(*this, ref) / sqr, -1.0f, 1.0f)) * sign(x * ref.x - y * ref.y) : acosf(clamp(dot(*this, ref) / sqr, -1.0f, 1.0f));
 }
 
+const Vector2 Vector2::operator*(const Vector2& a) const {
+	return Vector2(x * a.x, y * a.y);
+}
+
+const Vector2 Vector2::operator*(const float s) const {
+	return Vector2(x * s, y * s);
+}
+
 const Vector2 Vector2::operator+(const Vector2& a) const {
 	return Vector2(x + a.x, y + a.y);
 }
@@ -98,7 +106,7 @@ void Vector2::set(const float x, const float y) {
 	this->y = y;
 }
 
-std::string Vector2::toString() {
+const std::string Vector2::toString() const {
 	std::ostringstream str;
 	str << "(" << x << "," << y << ")";
 	return str.str();

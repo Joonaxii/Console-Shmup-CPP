@@ -30,6 +30,7 @@ public:
     const Vector2 movePoint(const Vector2& point) const;
     const Vector2 rotatePointRev(const Vector2& point) const;
     const Vector2 multiplyVector(const Vector2& vector) const;
+    const Vector2 multiplyAbsVector(const Vector2& vector) const;
     const Vector2 scaleVector(const Vector2& vector) const;
     const float rotate(const float rotation) const;
 

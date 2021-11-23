@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Collider2D.h"
 #include "../Math/Vector2.h"
 
 class Collider2D;
@@ -20,6 +21,10 @@ public:
 	static const bool aabbVsCircle(const Vector2& minA, const Vector2& maxA, const Vector2& pointB, const float radSqrdB);
 
 	static const bool cicrleVsCircle(const Vector2& pointA, const float radA, const Vector2& pointB, const float radB);
+	
+	const Collider2D* getCollider(const unsigned int id);
+
+	void update();
 
 private:
 	unsigned int _colliderCount;

@@ -77,7 +77,7 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 	stream >> rendOffset;
 
 	const int total(w * h);
-	auto pixels = std::make_unique<char[]>(total);
+	auto _pixels = std::make_unique<char[]>(total);
 	int ii = 0;
 
 	while (!stream.eof()) {
@@ -93,12 +93,20 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 			const wchar_t cW = line.at(i);
 			const char c = convertToANSI(cW);
 
-			pixels[ii++] = c == '^' ? ' ' : c;
+			_pixels[ii++] = replacementChars(c);
 		}
 	}
 	stream.close();
-	*sprite = new Sprite(pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY));
+	*sprite = new Sprite(_pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY));
 	return 0;
+}
+
+char ResourceManager::replacementChars(const char input) {
+	switch (input) {
+	default: return input;
+	case '^': return ' ';
+	case '½': return '\0';
+	}
 }
 
 char ResourceManager::convertToANSI(const wchar_t input) {

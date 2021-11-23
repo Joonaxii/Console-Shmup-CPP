@@ -32,6 +32,9 @@ public:
     const static Vector2 lerp(const Vector2& lhs, const Vector2& rhs, const float t);
     const static float dot(const Vector2& lhs, const Vector2& rhs);
 
+    const Vector2 operator*(const Vector2& a) const;
+    const Vector2 operator*(const float b) const;
+
     const Vector2 operator+(const Vector2& a) const;
     const Vector2 operator-(const Vector2& a) const;
 
@@ -46,6 +49,6 @@ public:
     void set(const Vector2& v);
     void set(const float x, const float y);
 
-    std::string toString();
+    const std::string toString() const;
 };
 

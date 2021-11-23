@@ -9,8 +9,11 @@
 #include <sstream>
 #include <iostream>
 #include "math.h"
+#include "SpriteFactory.h"
 
-Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 }, _bufferStream(), _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
+const Rect Rendering::GAME_AREA_BOUNDS(0, 0, CHAR_W, GAME_AREA_H);
+
+Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 }, _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
 
     for (size_t i = 0; i < 7; i++)
     {

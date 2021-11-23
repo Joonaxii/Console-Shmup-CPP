@@ -26,6 +26,7 @@ private:
     void loadSprites();
     int tryLoadSprite(const std::string path, Sprite** sprite, const std::locale locale);
 
+    char replacementChars(const char input);
     char convertToANSI(const wchar_t input);
 
 };

@@ -27,10 +27,6 @@ int main()
 
     Transform* plrTransform = new Transform();
     Transform* plrRootTransform = new Transform();
-    Transform* nmyTransform1 = new Transform();
-    Transform* nmyTransform2 = new Transform();
-    Transform* nmyTransform3 = new Transform();
-    Transform* nmyTransform4 = new Transform();
 
     SpriteRenderer* renderer = new SpriteRenderer();
     renderer->setTransform(plrTransform);
@@ -43,56 +39,46 @@ int main()
 
     Vector2 pos(0, 0);
 
-    SpriteRenderer* rendererBoss = new SpriteRenderer();
-    SpriteRenderer* rendererBoss2 = new SpriteRenderer();
-    SpriteRenderer* rendererBoss3 = new SpriteRenderer();
-    SpriteRenderer* rendererBoss4 = new SpriteRenderer();
-    rendererBoss->setTransform(nmyTransform1);
-    rendererBoss->setActive(true);
-
-    rendererBoss2->setTransform(nmyTransform2);
-    rendererBoss2->setActive(true);
-
-    rendererBoss3->setTransform(nmyTransform3);
-    rendererBoss3->setActive(true);
-
-    rendererBoss4->setTransform(nmyTransform4);
-    rendererBoss4->setActive(true);
-
     Sprite* sprtB(nullptr);
-    engine->getResourceManager()->tryGetSprite("Enemy_1", &sprtB);
-    rendererBoss->setSprite(sprtB);
-    rendererBoss->setLayer("Foreground");
+    engine->getResourceManager()->tryGetSprite("Boss_Sword", &sprtB);
 
-    rendererBoss2->setSprite(sprtB);
-    rendererBoss2->setLayer("Foreground");
-
-    rendererBoss3->setSprite(sprtB);
-    rendererBoss3->setLayer("Foreground");
-
-    rendererBoss4->setSprite(sprtB);
-    rendererBoss4->setLayer("Foreground");
-
-    nmyTransform1->setPosition(Vector2(24.0f, 0), false);
-    nmyTransform2->setPosition(Vector2(-24.0f, 0), false);
-    nmyTransform3->setPosition(Vector2(0, 24), false);
-    nmyTransform4->setPosition(Vector2(0, -24), false);
-
-    nmyTransform2->setRotation(180, false);
-    nmyTransform3->setRotation(90, false);
-    nmyTransform4->setRotation(-90, false);
+    const int swordCount = 32;
+    Transform* swords[swordCount];
+    SpriteRenderer* swordRenderers[swordCount];
+    float swordAngles[swordCount];
 
     plrTransform->addChild(plrRootTransform);
 
-    plrRootTransform->addChild(nmyTransform1);
-    plrRootTransform->addChild(nmyTransform2);
-    plrRootTransform->addChild(nmyTransform3);
-    plrRootTransform->addChild(nmyTransform4);
+    const float radPerI = (360.0f / swordCount);
+    for (size_t i = 0; i < swordCount; i++)
+    {
+        float ang = radPerI * i;
+        float rads = ang * DEG_2_RAD;
+
+        auto tr = swords[i] = new Transform();
+  
+        plrRootTransform->addChild(tr);
+        tr->setPosition(Vector2(cosf(rads) * 28.0f, sinf(rads) * 28.0f), false);
+        tr->setRotation(ang, false);
+
+        auto rend = swordRenderers[i] = new SpriteRenderer();
+        rend->setTransform(tr);
+
+        rend->setSprite(sprtB);
+        rend->setLayer("Foreground");
+        rend->setActive(true);
+
+        swordAngles[i] = ang;
+    }
 
     auto inputs = engine->getInputs();
     while (true)
     {
         engine->update();
+
+        if (inputs->isKeyDown(Inputs::DEBUG_MODE)) {
+            SpriteRenderer::DRAW_BOUNDS = !SpriteRenderer::DRAW_BOUNDS;
+        }
 
         float delta = time->getDeltaTime();
 
@@ -110,20 +96,21 @@ int main()
         pos += dir;
 
         const float t = time->getTime() * 25.0f;
-        const float tS = lerp(0.5f, 2.0f, (sinf(t * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
+        const float tS = lerp(1, 1, (sinf(t * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
 
         plrTransform->setPosition(pos, true);
         plrTransform->setScale(Vector2(tS, tS), false);
-        plrRootTransform->setRotation(t, false);
+        plrRootTransform->setRotation(t * -2.0f, false);
 
-        //renderer->setPosition(plrTransform->getPosition(true));
-        //rendererBoss->setPosition(nmyTransform->getPosition(true));
+        for (size_t i = 0; i < swordCount; i++)
+        {
+            auto tr = swords[i];
+            const float val = swordAngles[i];
+            tr->setRotation(val + t, false);
 
-        renderer->setSortingOrder(     max( plrTransform->getPosition(true).y * 10, 0));
-        rendererBoss->setSortingOrder( max(nmyTransform1->getPosition(true).y * 10, 0));
-        rendererBoss2->setSortingOrder(max(nmyTransform2->getPosition(true).y * 10, 0));
-        rendererBoss3->setSortingOrder(max(nmyTransform3->getPosition(true).y * 10, 0));
-        rendererBoss4->setSortingOrder(max(nmyTransform4->getPosition(true).y * 10, 0));
+            swordRenderers[i]->setSortingOrder(max(tr->getPosition(true).y * 10, 0));
+        }
+        renderer->setSortingOrder(max( plrTransform->getPosition(true).y * 10, 0));
 
         const auto frm = time->getFrames();
         if (frm % 1 == 0) {

@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Includes.h"
+#include "../Math/Rect.h"
 #include "string"
 #include "../../../Transform.h"
 
@@ -8,6 +9,8 @@ class Sprite;
 class SpriteRenderer
 {
 public:
+    static bool DRAW_BOUNDS;
+
     SpriteRenderer();
     ~SpriteRenderer();
 
@@ -18,6 +21,8 @@ public:
     void setLayer(const std::string name);
     void setSortingOrder(const unsigned short order);
     void draw(char* buffer, unsigned int* depthBuffer);
+
+    const Rect getBounds() const;
 
     Sprite* getSprite();
 
@@ -31,9 +36,14 @@ public:
 
 private:
 
+    SortingLayer _debugLayer;
+
     bool _isActive;
     Rendering* _rendering;
     Sprite* _sprite;
+    Sprite* _boundSprite;
     Transform* _transform;
+
+    Rect _bounds;
 };
 

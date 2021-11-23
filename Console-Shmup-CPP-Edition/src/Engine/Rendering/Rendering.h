@@ -1,5 +1,8 @@
 #pragma once
 #include "SpriteRenderer.h"
+#include "Sprite.h"
+#include "SortingLayer.h"
+#include "../Math/Rect.h"
 #include <queue>
 #include <vector>
 #include <string>
@@ -14,7 +17,7 @@ class Rendering
     static const int SCREEN_W = 1920;
     static const int SCREEN_H = 1080;
 
-    static const int SCREEN_W_S = (int)(SCREEN_W / 1.75);
+    static const int SCREEN_W_S = (int)(SCREEN_W / 1.5);
     static const int SCREEN_H_S = (int)(SCREEN_H / 1.5);
 
     static const int RES_X = SCREEN_W_S + 18;
@@ -40,6 +43,8 @@ public:
     static const int GAME_AREA_START = INFO_END;
     static const int GAME_AREA_H = CHAR_H - (TITLE_H + INFO_H);
     static const int GAME_AREA_END = GAME_AREA_START + GAME_AREA_H * CHAR_W;
+
+    static const Rect GAME_AREA_BOUNDS;
 
     Rendering();
     ~Rendering();
@@ -68,7 +73,6 @@ private:
 
     std::vector<SpriteRenderer*> _renderers;
     std::priority_queue<SpriteRenderer*, std::vector<SpriteRenderer*>, std::greater<SpriteRenderer*>> _batch;
-    std::wstreambuf* _bufferStream;
 
     void setScreenSize(const int x, const int y, const int w, const int h, const int cW, const int cH);
     void gotoxy(short x, short y);
