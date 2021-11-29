@@ -8,27 +8,19 @@ class Entity : public Object
 {
 public:
     Entity();
-    Entity(const int maxHP);
-    Entity(std::string name, const int maxHP);
+    Entity(const std::string name);
     ~Entity();
 
-    virtual bool takeDamage(const int damage, Object* damageDealer);
-    virtual void kill(bool silent, Object* killer);
+    Transform* getTransform() const;
+
     virtual bool update(const float deltaTime);
-
     virtual void setPosition(const Vector2& position);
-
-    void setMaxHP(const int newHP, const bool setCurrent = false);
 
 protected:
 
-    bool _isDead;
-
-    SpriteRenderer _renderer;
-    Collider2D _collider;
-
-    int _curentHP;
-    int _maxHP;
+    Transform* _transform;
+    SpriteRenderer* _renderer;
+    Collider2D* _collider;
 
     virtual void onCollisionEnter(Collider2D& other) = 0;
     virtual void onCollisionStay(Collider2D& other) = 0;

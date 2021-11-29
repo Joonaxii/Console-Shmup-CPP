@@ -1,34 +1,33 @@
 #include "Entity.h"
 
-Entity::Entity() : Entity(100) {}
-Entity::Entity(const int maxHP) : Entity("Entity #" + std::to_string(Object::getCurrentID()), maxHP) { }
-Entity::Entity(std::string name, const int maxHP) : Object(name), _isDead(true), _maxHP(maxHP), _curentHP(0), _renderer(), _collider(this) { }
+Entity::Entity() :Entity("Entity #" + std::to_string(Object::getCurrentID())) {}
+Entity::Entity(const std::string name) : Object(name) {
+	_transform = new Transform();
+	_collider = new Collider2D(this, _transform);
 
-Entity::~Entity()
-{
+	_renderer = new SpriteRenderer();
+	_renderer->setTransform(_transform);
+}
+
+Entity::~Entity() {
+	delete _transform;
+	delete _renderer;
+	delete _collider;
+}
+
+Transform* Entity::getTransform() const {
+	return _transform;
 }
 
 void Entity::setPosition(const Vector2& position) {
 	Object::setPosition(position);
 
-	_collider.setPosition(_position);
+	_collider->setPosition(_position);
 	//_renderer.setPosition(_position);
 }
 
-bool Entity::takeDamage(const int damage, Object* damageDealer) {
-	return false;
-}
-
-void Entity::kill(bool silent, Object* killer) {
-}
 
 bool Entity::update(const float deltaTime) {
 	return Object::update(deltaTime);
 }
 
-void Entity::setMaxHP(const int newHP, const bool setCurrent) {
-	_maxHP = newHP;
-
-	if (!setCurrent) { return; }
-	_curentHP = newHP;
-}

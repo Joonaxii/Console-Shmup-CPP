@@ -11,6 +11,3 @@ const float lerp(const float from, const float to, const float t);
 
 const int clamp(const int value, const int minV, const int maxV);
 const float clamp(const float value, const float minV, const float maxV);
-
-//int min(const int value, const int minV);
-//int max(const int value, const int maxV);

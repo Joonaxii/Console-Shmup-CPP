@@ -3,7 +3,7 @@
 #include "Engine/Collision/ColliderData.h"
 #include "Game/Entities/Entity.h"
 #include <sstream>
-#include "../Transform.h"
+#include "Engine/Components/Transform.h"
 #include "Engine/Math/Math.h"
 
 Engine* Engine::_instance;
@@ -16,11 +16,6 @@ int main()
 
     engine->getRendering()->setTitle("~~Joonaxii's Console-Shmup~~");
     engine->getRendering()->clearInfoRegion();
-
-    std::ostringstream ss;
-
-    std::string str("Size of ColliderData is '" + std::to_string(sizeof(ColliderData)) + "'");
-    OutputDebugStringA(str.c_str());
 
     const auto time = engine->getTime();
     const auto rend = engine->getRendering();
@@ -42,7 +37,7 @@ int main()
     Sprite* sprtB(nullptr);
     engine->getResourceManager()->tryGetSprite("Boss_Sword", &sprtB);
 
-    const int swordCount = 32;
+    const int swordCount = 24;
     Transform* swords[swordCount];
     SpriteRenderer* swordRenderers[swordCount];
     float swordAngles[swordCount];
@@ -91,7 +86,7 @@ int main()
         dir.y -= inputs->isKeyHeld(Inputs::MOVE_DOWN);
 
         dir.x *= delta * 42.0f;
-        dir.y *= delta * 32.0f;
+        dir.y *= delta * 42.0f;
 
         pos += dir;
 
@@ -114,22 +109,10 @@ int main()
 
         const auto frm = time->getFrames();
         if (frm % 1 == 0) {
-
-            std::ostringstream().swap(ss);
-            ss << "Fps: " << time->getFramerate() << "      ";
-            rend->addInfoString(0, 0, ss.str().c_str());
-
-            std::ostringstream().swap(ss);
-            ss << "Time: " << time->getTime() << "       ";
-            rend->addInfoString(0, 1, ss.str().c_str());
-
-            std::ostringstream().swap(ss);
-            ss << "Delta: " << time->getDeltaTime() << "     ";
-            rend->addInfoString(0, 2, ss.str().c_str());
-
-            std::ostringstream().swap(ss);
-            ss << "Frames: " << frm << "     ";
-            rend->addInfoString(0, 3, ss.str().c_str());
+            rend->addInfoString(0, 0, ("Fps: " + std::to_string(time->getFramerate()) + "      ").c_str());
+            rend->addInfoString(0, 1, ("Time: " + std::to_string(time->getTime()) + "      ").c_str());
+            rend->addInfoString(0, 2, ("Delta: " + std::to_string(time->getDeltaTime()) + "     ").c_str());
+            rend->addInfoString(0, 3, ("Frames: " + std::to_string(frm) + "     ").c_str());
         }
     }
 }

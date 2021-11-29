@@ -3,7 +3,7 @@
 #include "../Core/Object.h"
 #include <limits>
 
-Collider2D::Collider2D(Object* owner) : _chunkMask(0)/*, _chunkNodeMasks{0}*/ , _min(0, 0), _max(0, 0), _numOfColliders(0), _colliderData(nullptr), _owner(owner)  {
+Collider2D::Collider2D(Object* owner, Transform* transform) : _chunkMask(0), _chunkNodeMasks{0}, _transform(transform) , _min(0, 0), _max(0, 0), _numOfColliders(0), _colliderData(nullptr), _owner(owner)  {
 	//_id = CollisionSystem::registerCollider(this);
 }
 
@@ -73,7 +73,7 @@ void Collider2D::update() {
 }
 
 void Collider2D::clear() {
-	//memset(_chunkNodeMasks, 0, sizeof(unsigned long long) * CollisionGrid::CHUNK_COUNT);
+	memset(_chunkNodeMasks, 0, sizeof(unsigned long long) * CHUNK_COUNT);
 	_chunkMask = 0;
 }
 

@@ -88,7 +88,8 @@ void Sprite::draw(const Vector2& pos, char* buffer, unsigned int* depthBuffer, c
     const int offX = bufferW / 2;
     const int offY = bufferH / 2;
 
-    const Vector2Int off((int)round(pos.x + _pivot.x + offX), (int)round(-pos.y + _pivot.y + offY));
+    const Vector2Int off((int)round(pos.x + _pivot.x + offX), 
+                         (int)round(-pos.y + _pivot.y + offY));
     for (size_t y = 0; y < _resolution.y; y++)
     {
         int yY = y + off.y;

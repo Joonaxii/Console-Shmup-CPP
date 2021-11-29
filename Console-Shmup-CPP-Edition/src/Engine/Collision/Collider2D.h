@@ -5,9 +5,10 @@
 #include "CollisionSystem.h"
 #include "ColliderData.h"
 #include "ColliderType.h"
+#include "CollisionGlobals.h"
 #include <unordered_set>
+#include "../Components/Transform.h"
 
-class CollisionGrid;
 class Collider2D
 {
 public:
@@ -16,7 +17,7 @@ public:
 	std::function<void(Collider2D*)> onStay;
 	std::function<void(Collider2D*)> onExit;
 
-	Collider2D(Object* owner);
+	Collider2D(Object* owner, Transform* transform);
 	~Collider2D();
 
     template<class T> T* getOwnerAs() const{
@@ -42,6 +43,7 @@ public:
 private:
 
 	Object* _owner;
+	Transform* _transform;
 
 	Vector2 _position;
 
@@ -51,7 +53,7 @@ private:
 	unsigned int _id;
 
 	unsigned long long _chunkMask;
-	//unsigned long long _chunkNodeMasks[CollisionGrid::CHUNK_COUNT];
+	unsigned long long _chunkNodeMasks[CHUNK_COUNT];
 
 	unsigned char _numOfColliders;
 	ColliderData* _colliderData;

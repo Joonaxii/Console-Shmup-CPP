@@ -1,13 +1,19 @@
 #include "CollisionSystem.h"
 #include "../Math/Math.h"
 
-CollisionSystem::CollisionSystem() : _colliderCount(0), _colliders(0) { }
+CollisionSystem::CollisionSystem() : _colliderCount(0), _colliders(0)  { 
+//	_instance = this;
+}
 CollisionSystem::~CollisionSystem() { }
 
-unsigned int CollisionSystem::registerCollider(Collider2D* collider) {
-	_colliders.push_back(collider);
-	return _colliderCount++;
-}
+//const CollisionSystem* CollisionSystem::getInstance() {
+//	return _instance;
+//}
+
+//unsigned int CollisionSystem::registerCollider(Collider2D* collider) {
+//	_instance->_colliders.push_back(collider);
+//	return _instance->_colliderCount++;
+//}
 
 const bool CollisionSystem::pointVsAABB(const Vector2& pointA, const Vector2& minB, const Vector2& maxB) {
 	return !(minB.x > pointA.x || minB.y > pointA.y || maxB.x < pointA.x || maxB.y < pointA.y);

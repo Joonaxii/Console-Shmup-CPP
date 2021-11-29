@@ -2,7 +2,7 @@
 #include "../../Includes.h"
 #include "../Math/Rect.h"
 #include "string"
-#include "../../../Transform.h"
+#include "../Components/Transform.h"
 
 class Vector2;
 class Sprite;

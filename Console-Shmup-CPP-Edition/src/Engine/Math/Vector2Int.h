@@ -12,11 +12,11 @@ public:
         }
     };
 
-    int x;
-    int y;
+    signed int x;
+    signed int y;
 
     Vector2Int();
-    Vector2Int(int x, int y);
+    Vector2Int(signed int x, signed int y);
     ~Vector2Int();
 
     Vector2Int operator+=(const Vector2Int& other);

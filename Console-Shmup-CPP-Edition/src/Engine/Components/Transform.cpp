@@ -1,5 +1,6 @@
 #include "Transform.h"
 #include <algorithm>
+#include "../Math/Matrix3x3.h"
 
 Transform::Transform() : _children(0), _localMatrix(), _worldMatrix(), 
 _localPosition(0, 0), _localRotation(0), _localScale(1, 1),
