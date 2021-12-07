@@ -37,7 +37,7 @@ int main()
     Sprite* sprtB(nullptr);
     engine->getResourceManager()->tryGetSprite("Boss_Sword", &sprtB);
 
-    const int swordCount = 24;
+    const int swordCount = 16;
     Transform* swords[swordCount];
     SpriteRenderer* swordRenderers[swordCount];
     float swordAngles[swordCount];
