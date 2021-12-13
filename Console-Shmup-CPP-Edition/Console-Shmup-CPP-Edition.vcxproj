@@ -156,6 +156,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Rendering\Animation.cpp" />
+    <ClCompile Include="src\Engine\Rendering\AnimationFrame.cpp" />
+    <ClCompile Include="src\Engine\Rendering\Animator.cpp" />
     <ClCompile Include="src\Game\Entities\LivingEntity.cpp" />
     <ClCompile Include="src\Game\Entities\Projectile.cpp" />
     <ClCompile Include="src\Engine\Collision\CollisionGridNode.cpp" />
@@ -190,6 +193,9 @@
     <ClCompile Include="src\Engine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Rendering\Animation.h" />
+    <ClInclude Include="src\Engine\Rendering\AnimationFrame.h" />
+    <ClInclude Include="src\Engine\Rendering\Animator.h" />
     <ClInclude Include="src\Game\Entities\LivingEntity.h" />
     <ClInclude Include="src\Game\Entities\Projectile.h" />
     <ClInclude Include="src\Engine\Collision\CollisionGlobals.h" />
@@ -225,6 +231,7 @@
     <ClInclude Include="src\Engine\Math\Vector2Int.h" />
     <ClInclude Include="src\Engine\Collision\CollisionSystem.h" />
     <ClInclude Include="src\Engine\Components\Transform.h" />
+    <ClInclude Include="src\Engine\Components\TransformConstraints.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

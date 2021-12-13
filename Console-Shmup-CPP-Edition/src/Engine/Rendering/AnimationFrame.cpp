@@ -9,7 +9,7 @@ const float AnimationFrame::getDuration() const {
     return _duration;
 }
 
-const Sprite* AnimationFrame::getSprite() const {
+Sprite* AnimationFrame::getSprite() const {
     return _sprite;
 }
 

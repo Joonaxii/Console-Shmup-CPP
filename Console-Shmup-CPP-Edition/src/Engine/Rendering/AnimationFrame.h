@@ -10,7 +10,7 @@ public:
     ~AnimationFrame();
 
     const float getDuration() const;
-    const AnimationFrame& getSprite() const;
+    Sprite* getSprite() const;
 
 private:
     float _duration;

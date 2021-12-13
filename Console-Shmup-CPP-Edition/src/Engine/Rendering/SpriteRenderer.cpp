@@ -4,7 +4,7 @@
 
 bool SpriteRenderer::DRAW_BOUNDS = false;
 
-SpriteRenderer::SpriteRenderer() : _sprite(nullptr), _boundSprite(nullptr), layer(), _debugLayer("Debug", 0), _isActive(true), _bounds(), _transform(nullptr) {
+SpriteRenderer::SpriteRenderer() : _sprite(nullptr), _boundSprite(nullptr), layer(), _debugLayer("Debug", 0), _isActive(true), _bounds(), _transform(nullptr), _constraints() {
 	_rendering = Engine::getInstance()->getRendering();
 	_rendering->registerRenderer(this);
 }

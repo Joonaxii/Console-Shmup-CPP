@@ -9,6 +9,7 @@
 #include "../Rendering/Animation.h"
 
 class Sprite;
+class Animation;
 class ResourceManager
 {
 

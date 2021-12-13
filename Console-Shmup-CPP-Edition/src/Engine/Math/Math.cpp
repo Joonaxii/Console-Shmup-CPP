@@ -15,3 +15,8 @@ const int clamp(const int value, const int minV, const int maxV) {
 const float clamp(const float value, const float minV, const float maxV) {
     return value < minV ? minV : value > maxV ? maxV : value;
 }
+
+const float repeat(const float value, const float length) {
+    if (length == 0) { return 0.0f; }
+    return value - (floor(value / length) * length);
+}

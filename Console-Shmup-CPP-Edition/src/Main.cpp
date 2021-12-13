@@ -1,10 +1,11 @@
-#include "Includes.h"
 #include "Math.h"
-#include "Engine/Collision/ColliderData.h"
-#include "Game/Entities/Entity.h"
 #include <sstream>
-#include "Engine/Components/Transform.h"
+#include "Includes.h"
 #include "Engine/Math/Math.h"
+#include "Game/Entities/Entity.h"
+#include "Engine/Rendering/Animator.h"
+#include "Engine/Components/Transform.h"
+#include "Engine/Collision/ColliderData.h"
 
 Engine* Engine::_instance;
 
@@ -27,9 +28,15 @@ int main()
     renderer->setTransform(plrTransform);
     renderer->setActive(true);
 
+    Animator* animator = new Animator(renderer);
+    Animation* anim(nullptr);
+
+    engine->getResourceManager()->tryGetAnimation("Boss Warning", &anim);
+    animator->play(anim);
+
     Sprite* sprt(nullptr);
     engine->getResourceManager()->tryGetSprite("Player", &sprt);
-    renderer->setSprite(sprt);
+    //renderer->setSprite(sprt);
     renderer->setLayer("Foreground");
 
     Vector2 pos(0, 0);
@@ -76,6 +83,8 @@ int main()
         }
 
         float delta = time->getDeltaTime();
+
+        animator->update(delta);
 
         Vector2 dir(0, 0);
 

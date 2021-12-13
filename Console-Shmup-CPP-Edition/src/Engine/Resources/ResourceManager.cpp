@@ -1,4 +1,5 @@
 ﻿#include "ResourceManager.h"
+#include "../Rendering/AnimationFrame.h"
 #include "../IO/FilePath.h"
 #include "../IO/FileHelpers.h"
 
@@ -79,7 +80,14 @@ void ResourceManager::loadAnimations() {
 			}
 
 			int frameCount(0);
+			float frameRate(0);
 			stream >> frameCount;
+			stream >> frameRate;
+
+			frameRate = frameRate == 0 ? 1.0f : 1.0f / frameRate;
+			std::wstring temp;
+
+			std::getline(stream, temp);
 
 			AnimationFrame* frames = new AnimationFrame[frameCount];
 			for (size_t i = 0; i < frameCount; i++)
@@ -88,10 +96,11 @@ void ResourceManager::loadAnimations() {
 				if (tryLoadAnimFrame(stream, &sprt) == 0) {
 					_sprites.insert(std::pair<std::string, Sprite*>(file->name + " F #" + std::to_string(i), sprt));
 				}
-				frames[i] = AnimationFrame(sprt, 1.0f / 30.0f);
+				frames[i] = AnimationFrame(sprt, frameRate);
 			}
+			stream.close();
 
-			_animations.insert(std::pair<std::string, Animation*>(file->name, new Animation(frames, frameCount)));
+			_animations.insert(std::pair<std::string, Animation*>(file->name, new Animation(frames, frameCount, true)));
 
 			delete[] frames;
 			delete file;
@@ -112,6 +121,7 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 		const auto out = std::string("Could not open file: '" + path + "'\n");
 		OutputDebugStringA(out.c_str());
 
+		stream.close();
 		sprite = nullptr;
 		return 2;
 	}
@@ -175,6 +185,7 @@ int ResourceManager::tryLoadAnimFrame(std::wifstream& stream, Sprite** sprite) {
 	std::unique_ptr<char[]> pixels = nullptr;
 
 	int cur = 0;
+	bool breakOut = false;
 	for (size_t i = 0; i < line.length(); i++)
 	{
 		wchar_t c = line[i];
@@ -185,7 +196,6 @@ int ResourceManager::tryLoadAnimFrame(std::wifstream& stream, Sprite** sprite) {
 			break;
 
 		case L',':
-
 			switch (cur)
 			{
 			case 0:
@@ -210,22 +220,26 @@ int ResourceManager::tryLoadAnimFrame(std::wifstream& stream, Sprite** sprite) {
 
 		case '[':
 			if (pixels == nullptr) { return 1; }
-			signed int last = line.find_last_of(L']');
-
-			if (last < 0) { return 1; }
-
-			std::string test(std::to_string(last) + " // " + std::to_string(line.length()));
-			OutputDebugStringA(test.c_str());
+			
+			std::wstring temp(L"");
+			temp = line.substr(i + 1, w * h);
 
 			int ii = 0;
-			for (size_t j = i + 1; j < last; j++)
+			int offset = ((h - 1) * w);
+			for (size_t j = 0; j < temp.length(); j++)
 			{
-				pixels[ii++] = replacementChars(convertToANSI(line[j]));
+				pixels[offset + ii] = replacementChars(convertToANSI(temp[j]));
+				
+				ii++;
+				if (ii >= w) {
+					ii = 0;
+					offset -= w;
+				}
 			}
-
-			i = last + 1;
+			breakOut = true;
 			break;
 		}
+		if (breakOut) { break; }
 	}
 
 	if (pixels == nullptr) { return 1; }

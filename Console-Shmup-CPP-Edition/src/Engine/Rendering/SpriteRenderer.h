@@ -3,6 +3,7 @@
 #include "../Math/Rect.h"
 #include "string"
 #include "../Components/Transform.h"
+#include "../Components/TransformConstraints.h"
 
 class Vector2;
 class Sprite;
@@ -40,9 +41,13 @@ private:
 
     bool _isActive;
     Rendering* _rendering;
+
     Sprite* _sprite;
     Sprite* _boundSprite;
+
     Transform* _transform;
+
+    TransformConstraints _constraints;
 
     Rect _bounds;
 };
