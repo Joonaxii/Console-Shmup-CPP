@@ -5,8 +5,12 @@ unsigned int Object::_CURRENT_ID = 0;
 
 Object::Object() : Object("Object #" + std::to_string(_CURRENT_ID)) { }
 Object::Object(const std::string name) : Object(name, nullptr) { }
-Object::Object(const std::string name, ObjectPool* pool) : _position(0, 0), _name(name), _isActive(false), _itClock(0), _ID(_CURRENT_ID++), _pool(pool) { }
-Object::~Object() { }
+Object::Object(const std::string name, ObjectPool* pool) : _name(name), _isActive(false), _itClock(0), _ID(_CURRENT_ID++), _pool(pool) { 
+    _transform = new Transform();
+}
+Object::~Object() { 
+    delete _transform;
+}
 
 const unsigned int Object::getCurrentID() { return _CURRENT_ID; }
 
@@ -19,18 +23,17 @@ const unsigned int Object::getID() const {
     return _ID;
 }
 
+Transform* Object::getTransform() const {
+    return _transform;
+}
+
+
 const std::string Object::getName() const {
     return _name;
 }
 
-const Vector2 Object::getPosition() const {
-    return _position;
-}
-#pragma endregion
 
-void Object::setPosition(const Vector2& position) {
-    _position.set(position);
-}
+#pragma endregion
 
 void Object::spawn() {
     resetClock();
@@ -38,7 +41,7 @@ void Object::spawn() {
 }
 
 void Object::spawn(const Vector2& position) {
-    _position.set(position);
+    _transform->setPosition(position, true);
 }
 
 void Object::deSpawn() {

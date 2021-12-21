@@ -29,11 +29,17 @@ public:
     Vector2 normalize();
     const Vector2 getNormalized() const;
 
+    Vector2 clampMagnitude(const float max);
+
+    const static Vector2 smoothDamp(const Vector2& cur, const Vector2& target, Vector2* velocity, const float smoothTime, const float delta);
+
     const static Vector2 lerp(const Vector2& lhs, const Vector2& rhs, const float t);
+    const static float cross(const Vector2& lhs, const Vector2& rhs);
     const static float dot(const Vector2& lhs, const Vector2& rhs);
 
     const Vector2 operator*(const Vector2& a) const;
     const Vector2 operator*(const float b) const;
+    const Vector2 operator/(const float b) const;
 
     const Vector2 operator+(const Vector2& a) const;
     const Vector2 operator-(const Vector2& a) const;

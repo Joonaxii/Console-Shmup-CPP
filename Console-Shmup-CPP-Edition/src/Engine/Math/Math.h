@@ -8,6 +8,7 @@ const float RAD_2_DEG = (180.0f / M_PI);
 const float sign(const float val);
 
 const float lerp(const float from, const float to, const float t);
+const float lerpAngle(const float from, const float to, const float t);
 
 const int clamp(const int value, const int minV, const int maxV);
 const float clamp(const float value, const float minV, const float maxV);

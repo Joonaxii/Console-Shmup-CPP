@@ -1,7 +1,9 @@
 #include "LivingEntity.h"
 
 LivingEntity::LivingEntity() : Entity(), _maxHP(0), _curentHP(0), _isDead(true) { }
-LivingEntity::~LivingEntity() { }
+LivingEntity::~LivingEntity() { 
+	Object::~Object();
+}
 
 void LivingEntity::kill(bool silent, Object* killer) {
 }

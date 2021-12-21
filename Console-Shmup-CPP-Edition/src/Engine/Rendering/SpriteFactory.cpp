@@ -65,7 +65,7 @@ Sprite* SpriteFactory::getBox(const float width, const float height) {
 		}
 	}
 
-	Sprite* sprt = new Sprite(arr, reso, Vector2(0.5f, 0.5f));
+	Sprite* sprt = new Sprite(arr, reso, Vector2(0.5f, 0.5f), 0);
 	_boxSprites.insert(std::pair<Vector2Int, Sprite*>(reso, sprt));
 	
 	delete[] arr;

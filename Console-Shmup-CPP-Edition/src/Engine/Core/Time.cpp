@@ -4,19 +4,19 @@
 Time::Time() : _delta(0), _time(0), _frames(0), _fps(0), _prev(std::chrono::high_resolution_clock::now()){ }
 Time::~Time() { }
 
-float Time::getFramerate() {
+const float Time::getFramerate() const {
     return _fps;
 }
 
-float Time::getDeltaTime() {
+const float Time::getDeltaTime() const{
     return _delta;
 }
 
-float Time::getTime() {
+const float Time::getTime() const {
     return _time;
 }
 
-long long Time::getFrames() {
+const long long Time::getFrames() const {
     return _frames;
 }
 

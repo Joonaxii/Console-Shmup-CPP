@@ -1,12 +1,18 @@
 #include "Engine.h"
 #include "../Includes.h"
 
-Engine::Engine() {
+bool Engine::_isFocused = true;
 
-    _time = new Time();
+Engine::Engine() : _mainThread(nullptr), _renderThread(nullptr), _onUpdate(0) {
+
+    _collisionSystem = new CollisionSystem();
     _rendering = new Rendering();
+    _rendering->setup();
+
     _inputs = new Inputs();
     _resourceManager = new ResourceManager();
+
+    _window = GetConsoleWindow();
 }
 
 Engine::~Engine() { }
@@ -20,20 +26,51 @@ Engine* Engine::getInstance() {
     return  _instance;
 }
 
-void Engine::initialize() {
+void Engine::triggerOnUpdate() {
+    for (size_t i = 0; i < _onUpdate.size(); i++) {
+        _onUpdate[i]();
+    }
+}
 
-    _rendering->setup();
+void Engine::initialize() {
+    _mainThread = new SyncThread("Main", [this](Time* t) { update(); });
+    _renderThread = new SyncThread("Render", [this](Time* t) { _rendering->render(); });
+
+    _mainThread->setSyncThread(_renderThread);
 }
 
 void Engine::update() {
 
+    _isFocused = _window == GetForegroundWindow();
+    if (!_isFocused) { return; }
+
     _inputs->update();
-    _time->tick();
-    _rendering->render();
+    triggerOnUpdate();
+    //_rendering->render();
 }
 
-Time* Engine::getTime() {
-    return _time;
+const bool Engine::getFocus() {
+    return _isFocused;
+}
+
+const Time* Engine::getTime(const EngineThreadType tType = EngineThreadType::Main) const{
+    switch (tType) {
+    default: return _mainThread->getTime();
+    case EngineThreadType::Render:
+        return _renderThread->getTime();
+    }
+}
+
+const SyncThread* Engine::getThread(const EngineThreadType tType) const {
+    switch (tType) {
+    default: return _mainThread;
+    case EngineThreadType::Render:
+        return _renderThread;
+    }
+}
+
+CollisionSystem* Engine::getCollisionSystem() {
+    return _collisionSystem;
 }
 
 Rendering* Engine::getRendering() {
@@ -46,4 +83,16 @@ Inputs* Engine::getInputs() {
 
 ResourceManager* Engine::getResourceManager() {
     return _resourceManager;
+}
+
+void Engine::addListener(std::function<void()> callback) {
+    _onUpdate.push_back(callback);
+}
+
+void Engine::start() {
+    _mainThread->start();
+}
+
+void Engine::stop() {
+    _mainThread->stop();
 }

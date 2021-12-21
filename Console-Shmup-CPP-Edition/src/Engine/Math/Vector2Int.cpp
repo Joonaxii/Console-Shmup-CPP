@@ -40,8 +40,7 @@ void Vector2Int::set(const int x, const int y) {
     this->y = y;
 }
 
-std::string Vector2Int::toString()
-{
+const std::string Vector2Int::toString() const {
     std::ostringstream str;
     str << "(" << x << "," << y << ")";
     return str.str();

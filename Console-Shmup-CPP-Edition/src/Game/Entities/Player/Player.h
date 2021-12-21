@@ -6,8 +6,10 @@ class Entity;
 class Player : public Entity
 {
 	public:
-		Player();
+		Player(const int stock, const int maxLives);
 		~Player();
+
+	 bool update(const float delta);
 
 protected:
 
@@ -16,6 +18,9 @@ protected:
 	virtual void onCollisionExit(Collider2D& other);
 
 private:
+
+	static const Vector2 MAX_POS;
+	static const Vector2 MIN_POS;
 
 	int _maxLives;
 	int _lifeStock;

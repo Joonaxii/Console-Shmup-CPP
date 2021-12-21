@@ -1,10 +1,11 @@
 #pragma once
-#include "../../Includes.h"
 #include "../Math/Rect.h"
 #include "string"
+#include "SortingLayer.h"
 #include "../Components/Transform.h"
 #include "../Components/TransformConstraints.h"
 
+class Rendering;
 class Vector2;
 class Sprite;
 class SpriteRenderer
@@ -20,12 +21,18 @@ public:
     void setTransform(Transform* transform);
 
     void setLayer(const std::string name);
-    void setSortingOrder(const unsigned short order);
+    void setSortingOrder(const signed short order);
     void draw(char* buffer, unsigned int* depthBuffer);
+
+    void setFlipX(const bool val);
+    void setFlipY(const bool val);
+
+    const bool getFlipX() const;
+    const bool getFlipY() const;
 
     const Rect getBounds() const;
 
-    Sprite* getSprite();
+    const Sprite* getSprite() const;
 
     const bool canRender() const;
 
@@ -38,6 +45,9 @@ public:
 private:
 
     SortingLayer _debugLayer;
+
+    bool _flipX;
+    bool _flipY;
 
     bool _isActive;
     Rendering* _rendering;

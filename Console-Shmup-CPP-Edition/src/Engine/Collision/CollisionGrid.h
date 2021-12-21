@@ -15,7 +15,7 @@ public:
     void clear();
 
 private:
-    CollisionGridNode _nodes[GRID_RESOULTION];
+   // CollisionGridNode _nodes[GRID_RESOULTION];
     std::vector<Collider2D*> _colliders;
 };
 

@@ -8,6 +8,7 @@ class Inputs
 public:
 
     static const int DEBUG_MODE = 0x31;
+    static const int DEBUG_MODE_MISC = 0x32;
 
     static const int MOVE_LEFT = VK_LEFT;
     static const int MOVE_RIGHT = VK_RIGHT;
@@ -32,7 +33,6 @@ public:
 
 private:
 
-
     struct KeyState {
 
         bool down;
@@ -42,7 +42,6 @@ private:
 
     public:
         KeyState() : down(false), held(false), up(false), pressed(false) {}
-
         void copyFrom(const KeyState* other) {
 
             down = other->down;
@@ -52,7 +51,7 @@ private:
         }
     };
 
-    static const int INPUTS = 10;
+    static const int INPUTS = 11;
     const int _indexToKey[INPUTS];
 
     std::unordered_map<int, int> _keyLut;

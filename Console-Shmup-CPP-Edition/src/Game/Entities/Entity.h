@@ -9,16 +9,17 @@ class Entity : public Object
 public:
     Entity();
     Entity(const std::string name);
-    ~Entity();
+    virtual ~Entity();
 
-    Transform* getTransform() const;
+    SpriteRenderer* getRenderer() const;
+    Collider2D* getCollider() const;
 
     virtual bool update(const float deltaTime);
-    virtual void setPosition(const Vector2& position);
 
 protected:
 
-    Transform* _transform;
+    Engine* _engine;
+
     SpriteRenderer* _renderer;
     Collider2D* _collider;
 

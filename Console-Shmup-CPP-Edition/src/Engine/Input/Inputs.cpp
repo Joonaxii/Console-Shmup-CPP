@@ -1,10 +1,11 @@
 #include "Inputs.h"
 #include <string>
 #include "windows.h"
+#include "../Engine.h"
 
-Inputs::Inputs() : _keys{ nullptr }, _previousKeys{ nullptr }, _keyLut(), _indexToKey { DEBUG_MODE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ENTER, ESC, KEY_Z, KEY_X, KEY_C }
+Inputs::Inputs() : _keys{ nullptr }, _previousKeys{ nullptr }, _keyLut(), _indexToKey { DEBUG_MODE, DEBUG_MODE_MISC, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ENTER, ESC, KEY_Z, KEY_X, KEY_C }
 {
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < INPUTS; i++)
     {
         _keys[i] = new KeyState();
         _previousKeys[i] = new KeyState();
@@ -18,6 +19,7 @@ Inputs::~Inputs() {
 
 void Inputs::update()
 {
+    if (!Engine::getFocus()) { return; }
     for (size_t i = 0; i < 9; i++)
     {
         auto key = _keys[i];

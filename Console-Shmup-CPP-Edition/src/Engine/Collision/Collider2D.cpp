@@ -1,10 +1,16 @@
+#define NOMINMAX
+#include <limits>
 #include "CollisionSystem.h"
 #include "Collider2D.h"
+#include "../Rendering/Sprite.h"
 #include "../Core/Object.h"
-#include <limits>
+#include "../Rendering/Rendering.h"
+#include "../Rendering/SpriteFactory.h"
+
+bool Collider2D::SHOW_BOUNDS = false;
 
 Collider2D::Collider2D(Object* owner, Transform* transform) : _chunkMask(0), _chunkNodeMasks{0}, _transform(transform) , _min(0, 0), _max(0, 0), _numOfColliders(0), _colliderData(nullptr), _owner(owner)  {
-	//_id = CollisionSystem::registerCollider(this);
+	_id = CollisionSystem::registerCollider(this);
 }
 
 Collider2D::~Collider2D() 
@@ -56,8 +62,7 @@ void Collider2D::update() {
 	_min.x = _min.y = std::numeric_limits<float>().max();
 	_max.x = _max.x = std::numeric_limits<float>().min();
 
-	for (size_t i = 0; i < _numOfColliders; i++)
-	{
+	for (size_t i = 0; i < _numOfColliders; i++) {
 		auto c = _colliderData[i];
 		c.update(_position);
 
@@ -70,6 +75,11 @@ void Collider2D::update() {
 		_max.x = std::max(_max.x, cMax.x);
 		_max.y = std::max(_max.y, cMax.y);
 	}
+
+	if (SHOW_BOUNDS) {
+		Sprite* sprt = SpriteFactory::getBox(_max.x - _min.x, _max.y - _min.y);
+		Rendering::drawSprite(sprt, _position, "Debug", (short)(_position.y * -10));
+	}
 }
 
 void Collider2D::clear() {
@@ -78,17 +88,22 @@ void Collider2D::clear() {
 }
 
 bool Collider2D::addCollision(const Collider2D* other) {
-
 	return false;
 }
 
 bool Collider2D::removeCollision(const Collider2D* other) {
-
 	return false;
 }
 
 bool Collider2D::hasCollision(const Collider2D* other) const {
 	return _collisionSet.find(other->getID()) != _collisionSet.end();
+}
+
+bool Collider2D::validateChunk(const ulong chunkBit) {
+	if ((_chunkMask & chunkBit) != 0) { return false; }
+
+	_chunkMask |= chunkBit;
+	return true;
 }
 
 void Collider2D::clearColliderData() {

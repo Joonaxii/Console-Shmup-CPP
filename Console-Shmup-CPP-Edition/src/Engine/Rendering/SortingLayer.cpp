@@ -1,9 +1,10 @@
 #include "../../Includes.h"
 #include "SortingLayer.h"
+#include "../Math/Math.h"
 
 SortingLayer::SortingLayer() : orderInLayer(0), layerIndex(0) { }
 
-SortingLayer::SortingLayer(const std::string layerName, const unsigned short order) : orderInLayer(order)
+SortingLayer::SortingLayer(const std::string layerName, const signed short order) : orderInLayer(clamp(order + MAXINT16, 0, MAXUINT16))
 {
     Rendering* rend = Engine::getInstance()->getRendering();
     layerIndex = rend->layerNameToIndex(layerName);   

@@ -30,6 +30,6 @@ public:
     void set(const Vector2Int& v);
     void set(const int x, const int y);
 
-    std::string toString();
+    const std::string toString() const;
 };
 

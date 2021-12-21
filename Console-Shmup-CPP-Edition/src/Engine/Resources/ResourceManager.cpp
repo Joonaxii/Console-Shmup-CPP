@@ -131,7 +131,7 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 
 	float pivotX(0);
 	float pivotY(0);
-	int rendOffset(0);
+	int flip(0);
 
 	stream >> w;
 	stream >> h;
@@ -139,12 +139,14 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 	stream >> pivotX;
 	stream >> pivotY;
 
-	stream >> rendOffset;
+	stream >> flip;
 
 	const int total(w * h);
 	auto _pixels = std::make_unique<char[]>(total);
 	int ii = 0;
 
+	int x = 0;
+	int y = 0;
 	while (!stream.eof()) {
 
 		std::wstring line;
@@ -158,11 +160,17 @@ int ResourceManager::tryLoadSprite(const std::string path, Sprite** sprite, cons
 			const wchar_t cW = line.at(i);
 			const char c = convertToANSI(cW);
 
-			_pixels[ii++] = replacementChars(c);
+			_pixels[y * w + x] = replacementChars(c);
+			x++;
+			if (x >= w) {
+				y++;
+				x = 0;
+			}
+			ii++;
 		}
 	}
 	stream.close();
-	*sprite = new Sprite(_pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY));
+	*sprite = new Sprite(_pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY), flip);
 	return 0;
 }
 
@@ -173,7 +181,7 @@ int ResourceManager::tryLoadAnimFrame(std::wifstream& stream, Sprite** sprite) {
 
 	float pivotX(0);
 	float pivotY(0);
-	int rendOffset(0);
+	int flip(0);
 
 	std::wstring line(L"");
 	std::getline(stream, line);
@@ -212,6 +220,9 @@ int ResourceManager::tryLoadAnimFrame(std::wifstream& stream, Sprite** sprite) {
 			case 3:
 				pivotY = _wtof(tmp.c_str());
 				break;
+			case 4:
+				flip = _wtoi(tmp.c_str());
+				break;
 			}
 
 			tmp.clear();
@@ -244,7 +255,7 @@ int ResourceManager::tryLoadAnimFrame(std::wifstream& stream, Sprite** sprite) {
 
 	if (pixels == nullptr) { return 1; }
 
-	*sprite = new Sprite(pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY));
+	*sprite = new Sprite(pixels.get(), Vector2Int(w, h), Vector2(pivotX, pivotY), flip);
 	return 0;
 }
 

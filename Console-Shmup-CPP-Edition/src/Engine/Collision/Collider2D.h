@@ -9,9 +9,13 @@
 #include <unordered_set>
 #include "../Components/Transform.h"
 
+#define ulong unsigned long long
+
 class Collider2D
 {
 public:
+
+	static bool SHOW_BOUNDS;
 
 	std::function<void(Collider2D*)> onEnter;
 	std::function<void(Collider2D*)> onStay;
@@ -40,6 +44,8 @@ public:
     bool removeCollision(const Collider2D* other);
     bool hasCollision(const Collider2D* other) const;
 
+	bool validateChunk(const ulong chunkId);
+
 private:
 
 	Object* _owner;
@@ -52,8 +58,8 @@ private:
 
 	unsigned int _id;
 
-	unsigned long long _chunkMask;
-	unsigned long long _chunkNodeMasks[CHUNK_COUNT];
+	ulong _chunkMask;
+	ulong _chunkNodeMasks[CHUNK_COUNT];
 
 	unsigned char _numOfColliders;
 	ColliderData* _colliderData;

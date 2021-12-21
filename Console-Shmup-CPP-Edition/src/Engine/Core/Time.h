@@ -8,10 +8,10 @@ public:
     Time();
     ~Time();
 
-    float getFramerate();
-    float getDeltaTime();
-    float getTime();
-    long long getFrames();
+    const float getFramerate()const ;
+    const float getDeltaTime()const ;
+    const float getTime()const ;
+    const long long getFrames()const ;
 
     void tick();
 

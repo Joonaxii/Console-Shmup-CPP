@@ -2,30 +2,28 @@
 
 Entity::Entity() :Entity("Entity #" + std::to_string(Object::getCurrentID())) {}
 Entity::Entity(const std::string name) : Object(name) {
-	_transform = new Transform();
+	_engine = Engine::getInstance();
+
 	_collider = new Collider2D(this, _transform);
 
 	_renderer = new SpriteRenderer();
 	_renderer->setTransform(_transform);
+	_renderer->setActive(true);
 }
 
 Entity::~Entity() {
-	delete _transform;
+	Object::~Object();
 	delete _renderer;
 	delete _collider;
 }
 
-Transform* Entity::getTransform() const {
-	return _transform;
+SpriteRenderer* Entity::getRenderer() const {
+	return _renderer;
 }
 
-void Entity::setPosition(const Vector2& position) {
-	Object::setPosition(position);
-
-	_collider->setPosition(_position);
-	//_renderer.setPosition(_position);
+Collider2D* Entity::getCollider() const {
+	return _collider;
 }
-
 
 bool Entity::update(const float deltaTime) {
 	return Object::update(deltaTime);

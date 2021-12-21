@@ -1,5 +1,7 @@
 #pragma once
 #include "Animation.h"
+#include "SpriteRenderer.h"
+
 class Animator
 {
 public:

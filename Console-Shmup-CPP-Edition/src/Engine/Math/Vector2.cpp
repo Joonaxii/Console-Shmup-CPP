@@ -22,10 +22,7 @@ const float Vector2::angleDegrees(const Vector2& ref, const bool isSigned) const
 }
 
 const float Vector2::angleRadians(const Vector2& ref, const bool isSigned) const {
-
-	float sqr = sqrtf(sqrMagnitude() * ref.sqrMagnitude());
-	if (sqr < FLT_EPSILON) { return 0.0f; }
-	return isSigned ? acosf(clamp(dot(*this, ref) / sqr, -1.0f, 1.0f)) * sign(x * ref.x - y * ref.y) : acosf(clamp(dot(*this, ref) / sqr, -1.0f, 1.0f));
+	return isSigned ? -atan2f(dot(Vector2(-y, x), ref), dot(*this, ref)) : acosf(clamp(dot(*this, ref), -1.0f, 1.0f));
 }
 
 const Vector2 Vector2::operator*(const Vector2& a) const {
@@ -34,6 +31,10 @@ const Vector2 Vector2::operator*(const Vector2& a) const {
 
 const Vector2 Vector2::operator*(const float s) const {
 	return Vector2(x * s, y * s);
+}
+
+const Vector2 Vector2::operator/(const float b) const {
+	return Vector2(x / b, y / b);
 }
 
 const Vector2 Vector2::operator+(const Vector2& a) const {
@@ -70,6 +71,38 @@ const Vector2 Vector2::getNormalized() const {
 	return Vector2(x, y).normalize();
 }
 
+Vector2 Vector2::clampMagnitude(const float max) {
+	const float mag = magnitude();
+
+	if (mag > max) {
+		x = (x / mag) * max;
+		y = (y / mag) * max;
+	}
+	return *this;
+}
+
+const Vector2 Vector2::smoothDamp(const Vector2& cur, const Vector2& target, Vector2* velocity, const float smoothTime, const float deltaTime) {
+	if (smoothTime <= 0.0f) { return Vector2(target); }
+	const float half = smoothTime * 0.5f;
+	const float delta = half * deltaTime;
+
+	const float d = 1.0f / (1.0f + delta + 0.48f * delta * delta + 0.235 * delta * delta * delta);
+    Vector2 diff(cur - target);
+	const Vector2 tgt(cur - diff);
+
+	const Vector2 velDiff((*velocity + diff * half) * deltaTime);
+
+	const Vector2 tgtDiff(tgt + (diff + velDiff) * d);
+	if (dot(target - cur, tgtDiff - target)) {
+
+		*velocity = (tgtDiff - target) / deltaTime;
+		return Vector2(target);
+	}
+
+	*velocity = (*velocity - velDiff * half) * d;
+	return Vector2(tgtDiff);
+}
+
 Vector2 Vector2::operator-=(const Vector2& other) {
 	x -= other.x;
 	y -= other.y;
@@ -82,6 +115,10 @@ const bool Vector2::operator==(const Vector2& other) const {
 
 const Vector2 Vector2::lerp(const Vector2& lhs, const Vector2& rhs, const float t) {
 	return Vector2(lhs.x + (rhs.x - lhs.x) * t, lhs.y + (rhs.y - lhs.y) * t);
+}
+
+const float Vector2::cross(const Vector2& lhs, const Vector2& rhs) {
+	return (lhs.x * rhs.y - lhs.y * rhs.x);
 }
 
 const float Vector2::dot(const Vector2& lhs, const Vector2& rhs) {

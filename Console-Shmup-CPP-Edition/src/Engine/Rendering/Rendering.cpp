@@ -1,23 +1,26 @@
 ﻿#define _USE_MATH_DEFINES
 #define _WIN32_WINNT 0x0500
+#include "math.h"
 
-#include "../../Includes.h"
 #include "windows.h"
 #include "fcntl.h"
 #include "io.h"
 #include "stdio.h"
-#include <sstream>
-#include <iostream>
-#include "math.h"
 #include "SpriteFactory.h"
+#include "../Engine.h"
+#include "Rendering.h"
 
 const Rect Rendering::GAME_AREA_BOUNDS(0, 0, CHAR_W, GAME_AREA_H);
+Transform* Rendering::MAIN_CAMERA = nullptr;
 
-Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 }, _infoClearRegions(), _layerToIndex(), _batch(), _renderers() {
-
+Rendering::Rendering() :_buffer { 0 }, _depthBuffer { 0 },  _layerToIndex(), _batch(), _renderers() {
     for (size_t i = 0; i < 7; i++)
     {
         _layerToIndex.insert(std::pair<std::string, int>(layers[i], i));
+    }
+
+    if (MAIN_CAMERA == nullptr) {
+        MAIN_CAMERA = new Transform();
     }
 }
 
@@ -30,6 +33,17 @@ const int Rendering::layerNameToIndex(const std::string name) const {
     return _layerToIndex.at(name);
 }
 
+void Rendering::toggleCursor(const bool value) const {
+
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO info;
+
+    GetConsoleCursorInfo(consoleHandle, &info);
+    info.bVisible = value;
+    info.dwSize = 1;
+    SetConsoleCursorInfo(consoleHandle, &info);
+}
+
 const std::string Rendering::indexToLayerName(const int index) const {
 
     if (index < 0 || index >= _layerToIndex.size()) { return std::string(); }
@@ -40,17 +54,34 @@ void Rendering::registerRenderer(SpriteRenderer* renderer) {
     _renderers.push_back(renderer);
 }
 
-void Rendering::setup()
-{
+void Rendering::drawSprite(Sprite* sprite, const Vector2& pos, const std::string layerName, const signed short order) {
+    auto rend = Engine::getInstance()->getRendering();
+    if (rend == nullptr || sprite == nullptr) { return; }
+
+    SortingLayer lr(layerName, order);
+    sprite->draw(pos, rend->_buffer, rend->_depthBuffer, lr.getUnion(), CHAR_W, GAME_AREA_H, GAME_AREA_START, false, false);
+}
+
+void Rendering::setup() {
     std::ios::sync_with_stdio(false);
     std::wios::sync_with_stdio(false);
 
     HWND consoleWindow = GetConsoleWindow();
     SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
 
+    HANDLE hInput;
+    DWORD prev_mode;
+    hInput = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode(hInput, &prev_mode);
+    SetConsoleMode(hInput, ENABLE_EXTENDED_FLAGS |
+        (prev_mode & ~ENABLE_MOUSE_INPUT & ~ENABLE_LINE_INPUT & ~ENABLE_QUICK_EDIT_MODE));
+
     _setmode(_fileno(stdout), _O_TEXT);
+
     setScreenSize(OFFSET_X, OFFSET_Y, RES_X, RES_Y, CHAR_W, CHAR_H);
     memset(_buffer, ' ', CHAR_W * CHAR_H);
+
+    toggleCursor(false);
 }
 
 void Rendering::clearInfoRegion() {
@@ -264,6 +295,13 @@ void Rendering::setScreenSize(const int x, const int y, const int w, const int h
     CONSOLE_SCREEN_BUFFER_INFO  ConsoleInfo;
     HWND console = GetConsoleWindow();
 
+    RECT   rectScreen;
+    auto hwndScreen = GetDesktopWindow();
+    GetWindowRect(hwndScreen, &rectScreen);
+
+    int width = rectScreen.right - rectScreen.left;
+    int height = rectScreen.bottom - rectScreen.top;
+
     hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(hConsoleOutput, &ConsoleInfo);
     coord.X = cW;
@@ -278,9 +316,9 @@ void Rendering::setScreenSize(const int x, const int y, const int w, const int h
     cfi.FontWeight = FW_NORMAL;
 
     wcscpy_s(cfi.FaceName, L"Terminal");
-    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+    SetCurrentConsoleFontEx(hConsoleOutput, FALSE, &cfi);
 
     SetConsoleScreenBufferSize(hConsoleOutput, coord);
-    MoveWindow(console, x, y, w, h, TRUE);
+    MoveWindow(console, width / 2 - x, height / 2 - y, w, h, TRUE);
 
 }

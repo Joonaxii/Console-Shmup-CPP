@@ -8,6 +8,12 @@ const float lerp(const float from, const float to, const float t) {
     return from + (to - from) * t;
 }
 
+const float lerpAngle(const float from, const float to, const float t) {
+    float delta(repeat(to - from, 360.0f));
+    if (delta > 180.0f) { delta -= 360.0f; }
+    return from + delta * t;
+}
+
 const int clamp(const int value, const int minV, const int maxV) {
     return value < minV ? minV : value > maxV ? maxV : value;
 }
