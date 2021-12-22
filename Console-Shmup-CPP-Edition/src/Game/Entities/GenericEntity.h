@@ -5,7 +5,7 @@
 class GenericEntity : public Entity
 {
 public:
-	GenericEntity(const std::string name, Sprite* sprite, const std::string layer, const bool sortByY = true, const short sortingOrderOffset = 0);
+	GenericEntity(const std::string name, Sprite* sprite, const bool hasCollider, const std::string layer, const bool sortByY = true, const short sortingOrderOffset = 0);
 	~GenericEntity();
 
 	bool update(const float delta);

@@ -194,9 +194,12 @@
     <ClCompile Include="src\Engine\Components\Transform.cpp" />
     <ClCompile Include="src\Engine\Core\SyncThread.cpp" />
     <ClCompile Include="src\Engine\Rendering\UI\UIElement.cpp" />
+    <ClCompile Include="src\Game\Entities\Tether.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\EngineThreadType.h" />
+    <ClInclude Include="src\Engine\Math\WaveType.h" />
+    <ClInclude Include="src\Engine\Math\WaveSpecifications.h" />
     <ClInclude Include="src\Game\Entities\GenericEntity.h" />
     <ClInclude Include="src\Engine\Rendering\Animation.h" />
     <ClInclude Include="src\Engine\Rendering\AnimationFrame.h" />
@@ -240,6 +243,7 @@
     <ClInclude Include="src\Engine\Core\SyncThread.h" />
     <ClInclude Include="src\Engine\Rendering\UI\UIElement.h" />
     <ClInclude Include="src\Engine\Rendering\TextRegion.h" />
+    <ClInclude Include="src\Game\Entities\Tether.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

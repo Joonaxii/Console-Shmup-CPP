@@ -55,8 +55,11 @@ const Matrix3x3 Matrix3x3::transpose() const {
 }
 
 const Vector2 Matrix3x3::multiplyPoint(const Vector2& point) const {
-    return Vector2((point.x * _m[1] + point.y * _m[2]) * _m[0] + _m[6], 
-                   (point.y * _m[5] + point.x * _m[4]) * _m[3] + _m[7]);
+    const float pX = point.x * _m[0];
+    const float pY = point.y * _m[3];
+
+    return Vector2((pX * _m[1] + pY * _m[2]) + _m[6],
+                   (pY * _m[5] + pX * _m[4]) + _m[7]);
 }
 
 const Vector2 Matrix3x3::movePoint(const Vector2& point) const {
@@ -70,11 +73,17 @@ const Vector2 Matrix3x3::rotatePointRev(const Vector2& point) const {
 }
 
 const Vector2 Matrix3x3::multiplyVector(const Vector2& vector) const {
-    return Vector2((vector.x *_m[1] + vector.y * _m[2]) * _m[0], (vector.y * _m[5] + vector.x * _m[4]) * _m[3]);
+    const float pX = vector.x * _m[0];
+    const float pY = vector.y * _m[3];
+
+    return Vector2((pX *_m[1] + pY * _m[2]), (pY * _m[5] + pX * _m[4]));
 }
 
 const Vector2 Matrix3x3::multiplyAbsVector(const Vector2& vector) const {
-    return Vector2((vector.x * abs(_m[1]) + vector.y * abs(_m[2])) * _m[0], (vector.y * abs(_m[5]) + vector.x * abs(_m[4])) * _m[3]);
+    const float pX = vector.x * _m[0];
+    const float pY = vector.y * _m[3];
+
+    return Vector2((pX * abs(_m[1]) + pY * abs(_m[2])), (pY * abs(_m[5]) + pX * abs(_m[4])));
 }
 
 const Vector2 Matrix3x3::scaleVector(const Vector2& vector) const {

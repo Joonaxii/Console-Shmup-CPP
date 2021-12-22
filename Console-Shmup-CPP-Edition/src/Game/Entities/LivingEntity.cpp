@@ -1,6 +1,6 @@
 #include "LivingEntity.h"
 
-LivingEntity::LivingEntity() : Entity(), _maxHP(0), _curentHP(0), _isDead(true) { }
+LivingEntity::LivingEntity() : Entity("Living Entity", true), _maxHP(0), _curentHP(0), _isDead(true) { }
 LivingEntity::~LivingEntity() { 
 	Object::~Object();
 }

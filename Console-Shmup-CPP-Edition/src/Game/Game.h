@@ -17,9 +17,10 @@ private:
     const static float _bladeConfigs[];
     const static float _bladeSpeeds[];
     const static float _plrRotations[];
+    const static float _laserWidthConf[];
 
-    const float _configDuration = 4.0f;
-    const float _configTransitionDuration = 1.25f;
+    const float _configDuration = 1.75f*2;
+    const float _configTransitionDuration = 1.75f;
 
     Engine* _engine;
     Inputs* _inputs;

@@ -1,6 +1,6 @@
 #include "GenericEntity.h"
 
-GenericEntity::GenericEntity(const std::string name, Sprite* sprite, const std::string layer, const bool sortByY, const short sortingOrderOffset) : Entity(name), _sortByY(sortByY), _sortingOffset(sortingOrderOffset) {
+GenericEntity::GenericEntity(const std::string name, Sprite* sprite, const bool hasCollider, const std::string layer, const bool sortByY, const short sortingOrderOffset) : Entity(name, hasCollider), _sortByY(sortByY), _sortingOffset(sortingOrderOffset) {
 	_renderer->setLayer(layer);
 	_renderer->setSprite(sprite);
 	_renderer->setActive(true);

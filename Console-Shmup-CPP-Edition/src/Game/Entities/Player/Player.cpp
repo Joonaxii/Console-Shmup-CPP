@@ -12,7 +12,7 @@ bool _mode(false);
 Sprite* _spriteA(nullptr);
 Sprite* _spriteB(nullptr);
 
-Player::Player(const int stock, const int maxLives) : Entity("Player"), _lifeStock(stock), _maxLives(maxLives) 
+Player::Player(const int stock, const int maxLives) : Entity("Player", true), _lifeStock(stock), _maxLives(maxLives) 
 { 
 	_engine->getResourceManager()->tryGetSprite("Player", &_spriteA);
 	_engine->getResourceManager()->tryGetSprite("Player_Up_Side", &_spriteB);

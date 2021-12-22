@@ -26,3 +26,11 @@ const float repeat(const float value, const float length) {
     if (length == 0) { return 0.0f; }
     return value - (floor(value / length) * length);
 }
+
+const Vector2 quadraticBezierCurve(const Vector2 p0, const Vector2 p1, const Vector2 p2, const float t) {
+    const float u = 1.0f - t;
+    const float tt = t * t;
+    const float uu = u * u;
+
+    return p0 * uu + p1 * (2.0f * u * t) + p2 * tt;
+}

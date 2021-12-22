@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "../Engine/Math/Math.h"
 #include "Entities/GenericEntity.h"
+#include "../Engine/Rendering/Animator.h"
+#include "Entities/Tether.h"
 
 const int Game::SWORD_COUNT = 64;
 const int Game::CONFIG_COUNT = 5;
@@ -37,9 +39,24 @@ const float Game::_plrRotations[Game::CONFIG_COUNT]{
 		//360.0f + 90.0f,
 };
 
+const float Game::_laserWidthConf[Game::CONFIG_COUNT]{
+		0.0f,
+		0.45f,
+		1.0f,
+		2.0f,
+		0.45f,
+		//180.0f,
+		//270.0f,
+		//360.0f + 90.0f,
+};
+
 GenericEntity* enemy;
 GenericEntity* fangB;
 GenericEntity* fangA;
+Animator** laserAnims;
+Transform* laserRoot;
+Tether* _neck;
+const int LASER_COUNT(17);
 bool temp(false);
 Game::Game() {
     _engine = Engine::getInstance();
@@ -61,13 +78,61 @@ Game::Game() {
 	Sprite* enemySprt(nullptr);
 	Sprite* enemyFang(nullptr);
 	Sprite* enemyNeck(nullptr);
+	Sprite* enemyBody(nullptr);
+
 	_engine->getResourceManager()->tryGetSprite("Boss_2_Head", &enemySprt);
 	_engine->getResourceManager()->tryGetSprite("Boss_2_Fang", &enemyFang);
+	_engine->getResourceManager()->tryGetSprite("Boss_2_Body", &enemyBody);
 	_engine->getResourceManager()->tryGetSprite("Boss_2_Neck", &enemyNeck);
 
-	enemy = new GenericEntity("Enemy", enemySprt, "EnemiesBG", false, 0);
-	fangA = new GenericEntity("Fang A", enemyFang, "EnemiesBG", false, -2);
-	fangB = new GenericEntity("Fang B", enemyFang, "EnemiesBG", false, -2);
+	enemy = new GenericEntity("Enemy", enemySprt, true, "EnemiesBG", false, 0);
+	fangA = new GenericEntity("Fang A", enemyFang, false, "EnemiesBG", false, -2);
+	fangB = new GenericEntity("Fang B", enemyFang, false, "EnemiesBG", false, -2);
+	auto body = new GenericEntity("Body", enemyBody, false, "EnemiesBG", false, -2000);
+
+	body->getTransform()->setPosition(Vector2(0, -58), true);
+
+	Transform* bodyNeckPos = new Transform();
+	body->getTransform()->addChild(bodyNeckPos);
+	bodyNeckPos->setPosition(Vector2(0.0f, 46.0f), false);
+
+	_neck = new Tether(8, 5.0f, 0.85f, 0.75f, 0.25f, WaveSpecifications(WaveType::Sine, 0, 4.5f, 0.5f), -15.0f, 25.0f);
+	_neck->setSprite(enemyNeck, "EnemiesBG", -1600);
+	_neck->setPoint(bodyNeckPos, Vector2::zero, true);
+	_neck->setPoint(enemy->getTransform(), Vector2(0, 2.5f), false);
+
+	GenericEntity** laser = new GenericEntity* [LASER_COUNT];
+    laserAnims = new Animator* [LASER_COUNT];
+
+	Animation* animLaserHead;
+	Animation* animLaserLoop;
+
+	_engine->getResourceManager()->tryGetAnimation("Laser_Head_Loop", &animLaserHead);
+	_engine->getResourceManager()->tryGetAnimation("Laser_Loop", &animLaserLoop);
+
+	laserRoot = new Transform();
+
+	enemy->getTransform()->addChild(laserRoot);
+	laserRoot->setPosition(Vector2(0, -42.0f), false);
+	laserRoot->setRotation(90, false);
+	for (size_t i = 0; i < LASER_COUNT; i++)
+	{
+		GenericEntity* laser = new GenericEntity("LASER", nullptr, false, "EnemiesBG", false, -5 - i);
+		const Vector2 pos(-30.0f * i, 0);
+		auto an = laserAnims[i] = new Animator(laser->getRenderer(), 1.0f);
+
+		auto tra = laser->getTransform();
+		laserRoot->addChild(tra);
+		tra->setPosition(pos, false);
+
+		if (i == 0) {
+			an->addAnimation(animLaserHead);
+		}
+		else {
+			an->addAnimation(animLaserLoop);
+		}
+		an->play(0);
+	}
 
 	const int NECK_COUNT = 8;
 	const float START_NECK_SIZE = 0.15f;
@@ -98,7 +163,7 @@ Game::Game() {
 		float ang = radPerI * i;
 		float rads = ang * DEG_2_RAD;
 
-		auto tr = (_swords[i] = new GenericEntity("Sword #" + std::to_string(i), sprtB, "Foreground"))->getTransform();
+		auto tr = (_swords[i] = new GenericEntity("Sword #" + std::to_string(i), sprtB, false, "Foreground"))->getTransform();
 		_swords[i]->getRenderer()->setActive(false);
 		_plrRootTransform->addChild(tr);
 		tr->setPosition(Vector2(cosf(rads) * 24.0f, sinf(rads) * 24.0f), false);
@@ -119,10 +184,14 @@ float valBladeSpd(0);
 float valPlrRot(0);
 float transitionSpeed(0);
 
+float laserWidth(1.0f);
+
 float valRotST(-360.0f);
 float valBladeST(0);
 float valBladeSTSpd(0);
-float valPlrSTRot(0);
+float valPlrSTRot(0.0f);
+
+float laserWidthST(0);
 
 int currentConfig(0);
 
@@ -150,8 +219,8 @@ void Game::update() {
 	const float tS = lerp(-15, 15, (sinf(t * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
 
 	const float rot = lerp(-10.0f, 25.0f, (sinf(t * 3.5f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
-	const float rotA = lerp(-15.0f, 15.0f, (sinf(t * 1.75f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
-	const float posB = lerp(-1.5f, 3.0f, (sinf(t * 1.5f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
+	const float rotA = lerp(-15.0f, 15.0f, (sinf(t * 1.75f*0.5f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
+	const float posB = lerp(-1.5f, 3.0f, (sinf(t * 1.75f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
 
 	fangA->getTransform()->setRotation(rot, false);
 	fangB->getTransform()->setRotation(-rot, false);
@@ -167,8 +236,14 @@ void Game::update() {
 	const float angl((plrPos - enPos).angleDegrees(Vector2(0, -1.0f), true));
 	enemy->getTransform()->setRotation(lerpAngle(angleE, clamp(angl + rotA, -85.0f, 85.0f), delta * 4.0f), false);
 
+	_neck->update(delta);
 	_t += delta * -150.0 * valBladeSpd;
 	_player->update(delta);
+
+	for (size_t i = 0; i < LASER_COUNT; i++)
+	{
+		laserAnims[i]->update(delta);
+	}
 
 	float n;
 	if (_transitioning) {
@@ -179,9 +254,12 @@ void Game::update() {
 		valBlade = lerp(valBladeST, _bladeConfigs[currentConfig], n);
 		valBladeSpd = lerp(valBladeSTSpd, _bladeSpeeds[currentConfig], n);
 		valPlrRot = lerpAngle(valPlrSTRot, _plrRotations[currentConfig], n);
+		laserWidth = lerp(laserWidthST, _laserWidthConf[currentConfig], n);
 		transitionSpeed = lerp(1.0f, 1.0f, clamp(n * 4.0f, 0.0f, 1.0f));
 
 		_player->getTransform()->setRotation(valPlrRot, false);
+
+		laserRoot->setScale(Vector2(1.0f, laserWidth), false);
 
 		if (n >= 1.0f) {
 
@@ -204,11 +282,11 @@ void Game::update() {
 			valBladeST = valBlade;
 			valBladeSTSpd = valBladeSpd;
 			valPlrSTRot = valPlrRot;
+			laserWidthST = laserWidth;
 		}
 	}
 	_plrRootTransform->setPosition(_player->getTransform()->getPosition(true), false);
 	_plrRootTransform->setRotation(_t, false);
-
 
 	Rendering::MAIN_CAMERA->setPosition(_player->getTransform()->getPosition(true) * 0.1f, true);
 

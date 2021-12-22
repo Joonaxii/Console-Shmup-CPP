@@ -8,7 +8,7 @@ class Entity : public Object
 {
 public:
     Entity();
-    Entity(const std::string name);
+    Entity(const std::string name, const bool hasCollider);
     virtual ~Entity();
 
     SpriteRenderer* getRenderer() const;

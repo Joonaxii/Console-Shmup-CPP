@@ -125,6 +125,12 @@ const float Vector2::dot(const Vector2& lhs, const Vector2& rhs) {
 	return lhs.x * rhs.x + lhs.y * rhs.y;
 }
 
+const Vector2 Vector2::rotate(const Vector2& v, const float radians) {
+	const float sin = sinf(radians);
+	const float cos = cosf(radians);
+	return Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
+}
+
 const bool Vector2::operator!=(const Vector2& other) const {
 	return x != other.x && y != other.y;
 }

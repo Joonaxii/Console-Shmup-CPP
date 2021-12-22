@@ -37,6 +37,8 @@ public:
     const static float cross(const Vector2& lhs, const Vector2& rhs);
     const static float dot(const Vector2& lhs, const Vector2& rhs);
 
+    const static Vector2 rotate(const Vector2& input, const float radians);
+
     const Vector2 operator*(const Vector2& a) const;
     const Vector2 operator*(const float b) const;
     const Vector2 operator/(const float b) const;
