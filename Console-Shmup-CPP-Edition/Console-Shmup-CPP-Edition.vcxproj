@@ -156,6 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game\Entities\Enemies\Boss_2\Boss2Head.cpp" />
+    <ClCompile Include="src\Game\Entities\Enemies\Boss_2\Boss2.cpp" />
     <ClCompile Include="src\Game\Entities\GenericEntity.cpp" />
     <ClCompile Include="src\Engine\Rendering\Animation.cpp" />
     <ClCompile Include="src\Engine\Rendering\AnimationFrame.cpp" />
@@ -197,6 +199,8 @@
     <ClCompile Include="src\Game\Entities\Tether.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\Entities\Enemies\Boss_2\Boss2Head.h" />
+    <ClInclude Include="src\Game\Entities\Enemies\Boss_2\Boss2.h" />
     <ClInclude Include="src\Engine\EngineThreadType.h" />
     <ClInclude Include="src\Engine\Math\WaveType.h" />
     <ClInclude Include="src\Engine\Math\WaveSpecifications.h" />

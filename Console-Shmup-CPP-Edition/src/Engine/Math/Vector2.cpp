@@ -83,24 +83,39 @@ Vector2 Vector2::clampMagnitude(const float max) {
 
 const Vector2 Vector2::smoothDamp(const Vector2& cur, const Vector2& target, Vector2* velocity, const float smoothTime, const float deltaTime) {
 	if (smoothTime <= 0.0f) { return Vector2(target); }
-	const float half = smoothTime * 0.5f;
-	const float delta = half * deltaTime;
 
-	const float d = 1.0f / (1.0f + delta + 0.48f * delta * delta + 0.235 * delta * delta * delta);
-    Vector2 diff(cur - target);
-	const Vector2 tgt(cur - diff);
+	const float omega = smoothTime * 0.5f;
+	const float delta = omega * deltaTime;
+	const float d = 1.0f / (1.0f + delta + 0.48f * delta * delta + 0.235f * delta * delta * delta);
 
-	const Vector2 velDiff((*velocity + diff * half) * deltaTime);
+	const float diffX = cur.x - target.x;
+	const float diffY = cur.y - target.y;
 
-	const Vector2 tgtDiff(tgt + (diff + velDiff) * d);
-	if (dot(target - cur, tgtDiff - target)) {
+	const float tgtX = cur.x - diffX;
+	const float tgtY = cur.y - diffY;
 
-		*velocity = (tgtDiff - target) / deltaTime;
-		return Vector2(target);
+	const float tempX = (velocity->x - omega * diffX) * deltaTime;
+	const float tempY = (velocity->y - omega * diffY) * deltaTime;
+
+	float outX = tgtX + (diffX + tempX) * d;
+	float outY = tgtY + (diffY + tempY) * d;
+
+
+	const float ogMinCurX = target.x - cur.x;
+	const float ogMinCurY = target.y - cur.y;
+
+	const float outMinX = outX - target.x;
+	const float outMinY = outY - target.y;
+
+	if ((ogMinCurX * outMinX + ogMinCurY * outMinY) > 0) {
+		velocity->x = 0.0f;
+		velocity->y = 0.0f;
+		return Vector2(target.x, target.y);
 	}
 
-	*velocity = (*velocity - velDiff * half) * d;
-	return Vector2(tgtDiff);
+	velocity->x = (velocity->x - omega * tempX) * d;
+	velocity->y = (velocity->y - omega * tempY) * d;
+	return Vector2(outX, outY);
 }
 
 Vector2 Vector2::operator-=(const Vector2& other) {

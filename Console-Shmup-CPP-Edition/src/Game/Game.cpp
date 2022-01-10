@@ -3,6 +3,7 @@
 #include "Entities/GenericEntity.h"
 #include "../Engine/Rendering/Animator.h"
 #include "Entities/Tether.h"
+#include "Entities/Enemies/Boss_2/Boss2Head.h"
 
 const int Game::SWORD_COUNT = 64;
 const int Game::CONFIG_COUNT = 5;
@@ -50,13 +51,14 @@ const float Game::_laserWidthConf[Game::CONFIG_COUNT]{
 		//360.0f + 90.0f,
 };
 
-GenericEntity* enemy;
-GenericEntity* fangB;
-GenericEntity* fangA;
 Animator** laserAnims;
 Transform* laserRoot;
-Tether* _neck;
-const int LASER_COUNT(17);
+Boss2Head* enemy;
+
+Boss2Head* enemyB;
+Boss2Head* enemyC;
+
+const int LASER_COUNT(0);
 bool temp(false);
 Game::Game() {
     _engine = Engine::getInstance();
@@ -75,31 +77,31 @@ Game::Game() {
 	_swords = new GenericEntity*[SWORD_COUNT];
 	_swordAngles = new float[SWORD_COUNT];
 
-	Sprite* enemySprt(nullptr);
-	Sprite* enemyFang(nullptr);
-	Sprite* enemyNeck(nullptr);
-	Sprite* enemyBody(nullptr);
+	Transform* target = new Transform();
+	target->setPosition(Vector2(0, -60), true);
+	enemy = new Boss2Head(-1000, 1.0f, 0.0f, target, 100);
+	const short OFF = enemy->getRenderDepth();
 
-	_engine->getResourceManager()->tryGetSprite("Boss_2_Head", &enemySprt);
-	_engine->getResourceManager()->tryGetSprite("Boss_2_Fang", &enemyFang);
-	_engine->getResourceManager()->tryGetSprite("Boss_2_Body", &enemyBody);
-	_engine->getResourceManager()->tryGetSprite("Boss_2_Neck", &enemyNeck);
+	enemyB = new Boss2Head(-1000 - OFF, -1.0f, 45.0f, target, 100);
+	enemyC = new Boss2Head(-1000 - OFF, -1.0f, 90.0f, target, 100);
 
-	enemy = new GenericEntity("Enemy", enemySprt, true, "EnemiesBG", false, 0);
-	fangA = new GenericEntity("Fang A", enemyFang, false, "EnemiesBG", false, -2);
-	fangB = new GenericEntity("Fang B", enemyFang, false, "EnemiesBG", false, -2);
-	auto body = new GenericEntity("Body", enemyBody, false, "EnemiesBG", false, -2000);
+	enemyB->setFollowTarget(_player->getTransform());
+	enemyC->setFollowTarget(_player->getTransform());
 
-	body->getTransform()->setPosition(Vector2(0, -58), true);
+	enemyB->setTargetOffset(Vector2(-40, 18));
+	enemyC->setTargetOffset(Vector2(40, 18));
+	
+	enemyB->setFollowSpeed(0.5f);
+	enemyC->setFollowSpeed(0.5f);
 
-	Transform* bodyNeckPos = new Transform();
-	body->getTransform()->addChild(bodyNeckPos);
-	bodyNeckPos->setPosition(Vector2(0.0f, 46.0f), false);
+	enemyB->setFollowPower(Vector2(0.45f, 0.65f));
+	enemyC->setFollowPower(Vector2(0.45f, 0.65f));
 
-	_neck = new Tether(8, 5.0f, 0.85f, 0.75f, 0.25f, WaveSpecifications(WaveType::Sine, 0, 4.5f, 0.5f), -15.0f, 25.0f);
-	_neck->setSprite(enemyNeck, "EnemiesBG", -1600);
-	_neck->setPoint(bodyNeckPos, Vector2::zero, true);
-	_neck->setPoint(enemy->getTransform(), Vector2(0, 2.5f), false);
+	enemyB->setMinMaxPos(Vector2(-56.0f, 10.0f), Vector2(56.0f, 50.0f));
+	enemyC->setMinMaxPos(Vector2(-56.0f, 10.0f), Vector2(56.0f, 50.0f));
+
+	enemyB->setRotationPower(0.5f);
+	enemyC->setRotationPower(0.5f);
 
 	GenericEntity** laser = new GenericEntity* [LASER_COUNT];
     laserAnims = new Animator* [LASER_COUNT];
@@ -113,6 +115,9 @@ Game::Game() {
 	laserRoot = new Transform();
 
 	enemy->getTransform()->addChild(laserRoot);
+	enemy->setTargetOffset(Vector2(0, 28));
+	enemy->setFollowTarget(_player->getTransform());
+
 	laserRoot->setPosition(Vector2(0, -42.0f), false);
 	laserRoot->setRotation(90, false);
 	for (size_t i = 0; i < LASER_COUNT; i++)
@@ -146,14 +151,6 @@ Game::Game() {
 		nck->getTransform()->setScale(Vector2(scal, scal), false);
 		nck->getTransform()->setPosition(Vector2(0, -12 - (i * scal * 9)), false);
 	}*/
-
-	enemy->getTransform()->addChild(fangA->getTransform());
-	enemy->getTransform()->addChild(fangB->getTransform());
-
-	fangA->getTransform()->setPosition(Vector2(-8, -2), false);
-	fangB->getTransform()->setPosition(Vector2(8, -2), false);
-
-	fangB->getRenderer()->setFlipX(true);
 
 	enemy->getTransform()->setPosition(Vector2(0, 4), true);
 
@@ -215,31 +212,11 @@ void Game::update() {
 	}
 
 	float delta = timeMain->getDeltaTime();
-	const float t = timeMain->getTime() * 50.0f;
-	const float tS = lerp(-15, 15, (sinf(t * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
-
-	const float rot = lerp(-10.0f, 25.0f, (sinf(t * 3.5f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
-	const float rotA = lerp(-15.0f, 15.0f, (sinf(t * 1.75f*0.5f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
-	const float posB = lerp(-1.5f, 3.0f, (sinf(t * 1.75f * DEG_2_RAD * 2.0f) + 1.0f) * 0.5f);
-
-	fangA->getTransform()->setRotation(rot, false);
-	fangB->getTransform()->setRotation(-rot, false);
-
-	Vector2 enPos(enemy->getTransform()->getPosition(true));
-
-	const Vector2 plrPos(_player->getTransform()->getPosition(true));
-
-	enPos = Vector2::lerp(enPos, Vector2(plrPos.x * 0.75f, clamp(plrPos.y * 0.65f, -0.25f, 35.0f) + 28.0f + posB), delta * 2.8f);
-	enemy->getTransform()->setPosition(enPos, true);
-
-	const float angleE = enemy->getTransform()->getRotation(false);
-	const float angl((plrPos - enPos).angleDegrees(Vector2(0, -1.0f), true));
-	enemy->getTransform()->setRotation(lerpAngle(angleE, clamp(angl + rotA, -85.0f, 85.0f), delta * 4.0f), false);
-
-	_neck->update(delta);
-	_t += delta * -150.0 * valBladeSpd;
 	_player->update(delta);
 
+	enemy->update(delta);
+	enemyB->update(delta);
+	enemyC->update(delta);
 	for (size_t i = 0; i < LASER_COUNT; i++)
 	{
 		laserAnims[i]->update(delta);

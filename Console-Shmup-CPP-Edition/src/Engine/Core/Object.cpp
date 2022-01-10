@@ -5,7 +5,7 @@ unsigned int Object::_CURRENT_ID = 0;
 
 Object::Object() : Object("Object #" + std::to_string(_CURRENT_ID)) { }
 Object::Object(const std::string name) : Object(name, nullptr) { }
-Object::Object(const std::string name, ObjectPool* pool) : _name(name), _isActive(false), _itClock(0), _ID(_CURRENT_ID++), _pool(pool) { 
+Object::Object(const std::string name, ObjectPool* pool) : _name(name), _isActive(true), _itClock(0), _ID(_CURRENT_ID++), _pool(pool) { 
     _transform = new Transform();
 }
 Object::~Object() { 

@@ -15,5 +15,7 @@ const int clamp(const int value, const int minV, const int maxV);
 const float clamp(const float value, const float minV, const float maxV);
 
 const float repeat(const float value, const float length);
+const float smoothDamp(const float cur, const float target, float* velocity, const float smoothTime, const float deltaTime);
 
+const Vector2 infinity(const float t);
 const Vector2 quadraticBezierCurve(const Vector2 p0, const Vector2 p1, const Vector2 p2, const float t);

@@ -23,6 +23,8 @@ protected:
     SpriteRenderer* _renderer;
     Collider2D* _collider;
 
+    float _time;
+
     virtual void onCollisionEnter(Collider2D& other) = 0;
     virtual void onCollisionStay(Collider2D& other) = 0;
     virtual void onCollisionExit(Collider2D& other) = 0;
